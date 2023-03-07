@@ -3,6 +3,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -16,13 +18,16 @@ public class SimulationGUI extends JFrame {
 
     // Controller GUI Components
     private final JLabel countLabel = new JLabel("Circles (2-200): ");
-    protected final JTextField count = new JTextField(10);
+    //protected final JTextField count = new JTextField(10);
+    protected final JSlider count = new JSlider();
 
     private final JLabel speedLabel = new JLabel("Speed (1-5): ");
-    protected final JTextField speed = new JTextField(10);
+    //protected final JTextField speed = new JTextField(10);
+    protected final JSlider speed = new JSlider();
 
     private final JLabel sizeLabel = new JLabel("size (10-40): ");
-    protected final JTextField size = new JTextField(10);
+    //protected final JTextField size = new JTextField(10);
+    protected final JSlider size = new JSlider();
 
     private final JButton stop = new JButton("Stop");
     private final JButton play = new JButton("Play");

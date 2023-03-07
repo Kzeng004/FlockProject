@@ -42,14 +42,14 @@ public class Controller implements ActionListener {
             
 
             // Create the circles based on count
-            Integer count = Integer.valueOf(this.view.count.getText());
+            Integer count = Integer.valueOf(this.view.count.getValue());
             model.setCount(count);
 
             // Set the speed of the simulation
-            Integer speed = Integer.valueOf(this.view.speed.getText());
+            Integer speed = Integer.valueOf(this.view.speed.getValue());
             model.setSpeed(speed);
             //set shape of the circles
-            Integer size = Integer.valueOf(this.view.size.getText());
+            Integer size = Integer.valueOf(this.view.size.getValue());
             model.setShape(size);
 
             
