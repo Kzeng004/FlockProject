@@ -10,9 +10,9 @@ import java.lang.Thread;
  * @author Xeng Yang 
  * Template for code was provided by Amy Larson
  */
-public class CircleModel extends Thread {
+public class BoidModel extends Thread {
 
-    private ArrayList<Circle> circles = new ArrayList<>();
+    private ArrayList<Boid> boids = new ArrayList<>();
 
     /** Time in ms. "Frame rate" for redrawing the circles. */
     private int stepSize = 200;
@@ -26,10 +26,10 @@ public class CircleModel extends Thread {
     private SimulationGUI simulation;
 
     /** Default constructor. */
-    public CircleModel() {
+    public BoidModel() {
         // All circels that might appear in the graphics window are created, but are not visible.
         for (int i=0; i<200; i++) {
-            circles.add(new Circle());
+            boids.add(new Boid());
         }
     }
 
@@ -44,26 +44,27 @@ public class CircleModel extends Thread {
             // Move things only if the simulation is not paused
             //If circles are overlapping, change the color of the circles and then change the coordinate of both circles
             if (!paused) {
-                advanceCircles();
+                advanceBoids();
                 simulation.getContentPane().repaint();
-                for(int i = 4; i < circles.size()-4; i++){
-                    if(circles.get(i).overlaps(circles.get(i-1)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i-1).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i-1).randomColor();
+                /* 
+                for(int i = 4; i < boids.size()-4; i++){
+                    if(boids.get(i).overlaps(boids.get(i-1)) == true){
+                        boids.get(i).randomXY();
+                        boids.get(i-1).randomXY();
+                        boids.get(i).randomColor();
+                        boids.get(i-1).randomColor();
                     }
-                    else if(circles.get(i).overlaps(circles.get(i+1)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i+1).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i+1).randomColor();
+                    else if(boids.get(i).overlaps(boids.get(i+1)) == true){
+                        boids.get(i).randomXY();
+                        boids.get(i+1).randomXY();
+                        boids.get(i).randomColor();
+                        boids.get(i+1).randomColor();
                     }
-                    if(circles.get(i).overlaps(circles.get(i-2)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i-2).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i-2).randomColor();
+                    if(boids.get(i).overlaps(boids.get(i-2)) == true){
+                        boids.get(i).randomXY();
+                        boids.get(i-2).randomXY();
+                        boids.get(i).randomColor();
+                        boids.get(i-2).randomColor();
                     }
                     else if(circles.get(i).overlaps(circles.get(i+2)) == true){
                         circles.get(i).randomXY();
@@ -94,9 +95,9 @@ public class CircleModel extends Thread {
                         circles.get(i+4).randomXY();
                         circles.get(i).randomColor();
                         circles.get(i+4).randomColor();
-                    }
+                    } */
                     
-                }
+                
             }
             try {
                 Thread.sleep(stepSize);
@@ -119,37 +120,37 @@ public class CircleModel extends Thread {
     }
 
     /** Move circles to next location */
-    public void advanceCircles() {
+    public void advanceBoids() {
         for (int i=0; i<count; i++) {
             // Advance each circle
-            circles.get(i).step();
+            boids.get(i).step();
             // Set the location, which prompts the viewer to newly display the circle
-            circles.get(i).setLocation(circles.get(i).getXY().x, circles.get(i).getXY().y);
+            boids.get(i).setLocation(boids.get(i).getXY().x, boids.get(i).getXY().y);
         }
     }
 
 
-    public ArrayList<Circle> getCircles() {
-        return circles;
+    public ArrayList<Boid> getBoids() {
+        return boids;
     }
 
     /** Reset circles */
-    public void setCount(int circleCount) {
+    public void setCount(int boidCount) {
         System.out.println("Making circles!");
         // Must be in bounds. Only 20 circles in the list.
-        if (circleCount < 2) {
-            circleCount = 2;
-        } else if (circleCount > 200) {
-            circleCount = 200;
+        if (boidCount < 2) {
+            boidCount = 2;
+        } else if (boidCount > 200) {
+            boidCount = 200;
         }
         // Reset "count" circles, making them visible
-        count = circleCount;
+        count = boidCount;
         for (int i=0; i<count; i++) {
-            circles.get(i).reset();
+            boids.get(i).reset();
         }
         // Hide the rest
         for (int i=count; i<20; i++) {
-            circles.get(i).hideCircle();
+            boids.get(i).hideBoid();
         }
     }
 
@@ -176,11 +177,10 @@ public class CircleModel extends Thread {
             newShape = 40;
         }
         size = newShape;
-        for (int i=0; i<circles.size(); i++) {
-            circles.get(i).setSize(size, size);
+        for (int i=0; i<boids.size(); i++) {
+            boids.get(i).setSize(size, size);
         }
 
     }
-
-
 }
+
