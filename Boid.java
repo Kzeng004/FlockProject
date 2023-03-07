@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import java.util.Random;
+import java.util.Vector;
 
 /** Circle for drawing in a JFrame
  *
@@ -17,7 +18,6 @@ public class Boid extends JPanel {
         return nextId++;
     }
     private int id;
-
     /** x and y bounds to keep circles in the playAreas */
     private final int xMINRANGE = 60;
     private final int xMAXRANGE = 740;
@@ -143,7 +143,7 @@ public class Boid extends JPanel {
      * @param other is the other circle
      * @return
      */
-    public boolean overlaps(Boid other){
+    public boolean determineNeighbor(Boid other){
         boolean touched = false;
         double d = Math.sqrt((this.xy.x - other.xy.x) * (this.xy.x - other.xy.x) + (this.xy.y - other.xy.y) * (this.xy.y - other.xy.y));
         if(d <= this.radius + other.radius){
