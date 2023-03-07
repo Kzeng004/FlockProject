@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Xeng Yang 
  * Template for code was provided by Amy Larson
  */
-public class Circle extends JPanel {
+public class Boid extends JPanel {
 
     /** Unique id (for debugging) */
     static int nextId = 0;
@@ -49,16 +49,16 @@ public class Circle extends JPanel {
         randomDirection();
         randomColor();
         setLocation(xy.x, xy.y);
-        showCircle();
+        showBoid();
     }
 
     /** Circle is visible */
-    public void showCircle() {
+    public void showBoid() {
         visible = true;
     }
 
     /** Circle is not visible */
-    public void hideCircle() {
+    public void hideBoid() {
         visible = false;
     }
     /**
@@ -71,7 +71,7 @@ public class Circle extends JPanel {
 
 
     /** Default constructor */
-    public Circle() {
+    public Boid() {
         id = getId();   // for debugging
 
         this.setSize(2*radius, 2*radius);
@@ -143,7 +143,7 @@ public class Circle extends JPanel {
      * @param other is the other circle
      * @return
      */
-    public boolean overlaps(Circle other){
+    public boolean overlaps(Boid other){
         boolean touched = false;
         double d = Math.sqrt((this.xy.x - other.xy.x) * (this.xy.x - other.xy.x) + (this.xy.y - other.xy.y) * (this.xy.y - other.xy.y));
         if(d <= this.radius + other.radius){

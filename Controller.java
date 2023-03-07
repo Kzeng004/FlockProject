@@ -14,7 +14,7 @@ public class Controller implements ActionListener {
     
 
     /** The model of the circles. */
-    private final CircleModel model = new CircleModel();
+    private final BoidModel model = new BoidModel();
     /** The gui for the simulation. */
     private final SimulationGUI view;
     
