@@ -1,9 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 import javax.swing.JPanel;
 
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
 /** Circle for drawing in a JFrame
  *
@@ -18,20 +18,27 @@ public class Boid extends JPanel {
         return nextId++;
     }
     private int id;
-    /** x and y bounds to keep circles in the playAreas */
+    /** x and y bounds to keep boids in the playAreas */
     private final int xMINRANGE = 60;
     private final int xMAXRANGE = 740;
     private final int yMINRANGE = 160;
     private final int yMAXRANGE = 740;
 
     /** Fixed size */
-    public int radius = 20;
+    //public int radius = 20;
+
+    private int height = 20;
+    private int width = 20;
+    private double area = (height * width)/2.0;
     
     /** Color specified in RGB */
     private Color color = new Color(10, 10, 10);
 
-    /** Location of the JPanel in which the circle is drawn */
-    private Point xy = new Point(0, 0);
+    /** Location of the JPanel in which the boid is drawn */
+    private Point v1 = new Point(0,20);
+    private Point v2 = new Point(20,20);
+    private Point v3 = new Point(10,0);
+    private ArrayList<Point> points = new ArrayList<>();
 
     /** Delta of location at each timestep */
     private Point direction = new Point(+1, +1);
@@ -45,10 +52,12 @@ public class Boid extends JPanel {
 
     /** Reassigns member variables to the circle. */
     public void reset() {
-        randomXY();
-        randomDirection();
+        v1 = randomXY(v1);
+        v2 = new Point(v1.x + 20, v1.y);
+        v3 = new Point(v1.x + 10, v1.y - 20);
         randomColor();
-        setLocation(xy.x, xy.y);
+        setLocation(v1.x, v1.y);
+        randomDirection();
         showBoid();
     }
 
@@ -61,12 +70,16 @@ public class Boid extends JPanel {
     public void hideBoid() {
         visible = false;
     }
+
     /**
-     * set the radius to i * radius
-     * @param i
+     * set the area to (h * w) / 2
+     * @param h Desired height
+     * @param w Desired width
      */
-    public void setRadius(int i){
-        radius = i * radius;
+    public void setArea(int h, int w){
+        height = h;
+        width = w;
+        area = (h * w)/2.0;
     }
 
 
@@ -74,22 +87,31 @@ public class Boid extends JPanel {
     public Boid() {
         id = getId();   // for debugging
 
-        this.setSize(2*radius, 2*radius);
+        v1 = randomXY(v1);
+        v2 = new Point(v1.x + 20, v1.y);
+        v3 = new Point(v1.x + 10, v1.y + 20);
 
-        // Make the box/panel on which the circle is drawn transparent
+        points.add(v1);
+        points.add(v2);
+        points.add(v3);
+
+        this.setArea(v3.y - v1.y,v2.x - v1.x);
+        this.setLocation(v1.x, v1.y);
+
+        // Make the box/panel on which the boid is drawn transparent
         this.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
 
         // Randomly assign values
-        randomXY();
         randomDirection();
         randomColor();
     }
 
     /** Randomly assign its location based on the fixed ranges. */
-    public void randomXY() {
+    public Point randomXY(Point v) {
         // place at random location
-        xy.x = random.nextInt(xMAXRANGE - xMINRANGE) + xMINRANGE;
-        xy.y = random.nextInt(yMAXRANGE - yMINRANGE) + yMINRANGE;
+        v.x = random.nextInt(xMAXRANGE - xMINRANGE) + xMINRANGE;
+        v.y = random.nextInt(yMAXRANGE - yMINRANGE) + yMINRANGE;
+        return v;
     }
 
     /** Randomly point it in a direction with random "speed" */
@@ -105,48 +127,65 @@ public class Boid extends JPanel {
         color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 
-    /** Move the robot the "delta" for 1 timestep */
+    /** Move the boid the "delta" for 1 timestep */
     public void step() {
-        int xNew = (xy.x + direction.x);
-        int yNew = (xy.y + direction.y);
-        if (xNew < xMINRANGE) {
-            xy.x -= direction.x;
-            direction.x *= -1;
+        int x1New = (v1.x + direction.x);
+        int y1New = (v1.y + direction.y);
+        int x2New = (v2.x + direction.x);
+        int y2New = (v2.y + direction.y);
+        int x3New = (v3.x + direction.x);
+        int y3New = (v3.y + direction.y);
+
+        if (x1New < xMINRANGE) {
+            v1.x = xMAXRANGE - 21;
+            v2.x = xMAXRANGE - 1;
+            v3.x = xMAXRANGE - 11;
         }
-        else if (xNew > xMAXRANGE) {
-            xy.x -= direction.x;
-            direction.x *= -1;
-        }
-        else {
-            xy.x += direction.x;
-        }
-        if (yNew < yMINRANGE) {
-            xy.y -= direction.y;
-            direction.y *= -1;
-        }
-        else if (yNew > yMAXRANGE) {
-            xy.y -= direction.y;
-            direction.y *= -1;
+        else if (x2New > xMAXRANGE) {
+            v1.x = xMINRANGE + 1;
+            v2.x = xMINRANGE + 21;
+            v3.x = xMINRANGE + 11;
         }
         else {
-            xy.y += direction.y;
+            for (Point v: points){
+                v.x += direction.x;
+            }
+        }
+        if (y3New < yMINRANGE) {
+            for (Point v: points){
+                v.y -= direction.y;
+            }
+            direction.y *= -1;
+        }
+        else if (y1New > yMAXRANGE) {
+            for (Point v: points){
+                v.y -= direction.y;
+            }
+            direction.y *= -1;
+        }
+        else {
+            for (Point v: points){
+                v.y += direction.y;
+            }
         }
     }
 
 
     
-    public Point getXY() {
-        return xy;
+    public ArrayList<Point> getPoints() {
+        return points;
     }
     /**
-     * Check to see if there is overlap with circles
-     * @param other is the other circle
+     * Check to see if there is overlap with boids
+     * @param other is the other boid
      * @return
      */
     public boolean determineNeighbor(Boid other){
         boolean touched = false;
-        double d = Math.sqrt((this.xy.x - other.xy.x) * (this.xy.x - other.xy.x) + (this.xy.y - other.xy.y) * (this.xy.y - other.xy.y));
-        if(d <= this.radius + other.radius){
+        Point thisCenter = new Point(v1.x + width/2, v1.y - height/2);
+        Point otherCenter = new Point(other.v1.x + other.width/2, other.v1.y - other.height/2);
+        double d = Math.sqrt((thisCenter.x - otherCenter.x) * (thisCenter.x - otherCenter.x) + (thisCenter.y - otherCenter.y) * (thisCenter.y - otherCenter.y));
+        if(d <= this.height + other.height){
             touched = true;
             
         }
@@ -163,7 +202,9 @@ public class Boid extends JPanel {
         super.paintComponent(g);
         if (visible) {
             g.setColor(color);
-            g.fillOval(0, 0, 2*radius, 2*radius);
+            Polygon p = new Polygon(new int[] {0,width/2,width},new int[] {0,0,height},3);
+            g.drawPolygon(p);
+            g.fillPolygon(p);
         }
     }
 }

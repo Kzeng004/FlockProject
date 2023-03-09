@@ -127,7 +127,7 @@ public class Model extends Thread {
             // Advance each circle
             boids.get(i).step();
             // Set the location, which prompts the viewer to newly display the circle
-            boids.get(i).setLocation(boids.get(i).getXY().x, boids.get(i).getXY().y);
+            boids.get(i).setLocation(boids.get(i).getPoints().get(0).x, boids.get(i).getPoints().get(0).y);
         }
     }
 
