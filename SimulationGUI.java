@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class SimulationGUI extends JFrame {
 
     // Controller GUI Components
-    private final JLabel countLabel = new JLabel("Circles (2-200): ");
+    private final JLabel countLabel = new JLabel("Number of Boids (2-200): ");
     protected final JSlider count = new JSlider();
 
     private final JLabel speedLabel = new JLabel("Speed (1-5): ");

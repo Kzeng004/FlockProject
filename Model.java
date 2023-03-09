@@ -22,7 +22,9 @@ public class Model extends Thread {
     private boolean paused = true;
 
     private int size = 0;
-
+    private int avgPosPrecedence = 1;
+    private int avgDirPrecedence = 1;
+    private int moveAwayPrecedence = 1;
     private SimulationGUI simulation;
 
     /** Default constructor. */
@@ -181,6 +183,35 @@ public class Model extends Thread {
             boids.get(i).setSize(size, size);
         }
 
+    }
+    public double calcAvgPosition(){
+        double pos = 0;
+        return pos;
+    }
+    public double calcAvgDirection(){
+        double dir = 0;
+        return dir;
+    }
+    public void setRule1(int rule1){
+        if (rule1 < 1) {
+            rule1 = 1;
+        } else if (rule1 > 5) {
+            rule1 = 5;
+        }
+    }
+    public void setRule2(int rule2){
+        if (rule2 < 1) {
+            rule2 = 1;
+        } else if (rule2 > 5) {
+            rule2 = 5;
+        }
+    }
+    public void setRule3(int rule3){
+        if (rule3 < 1) {
+            rule3 = 1;
+        } else if (rule3 > 5) {
+            rule3 = 5;
+        }
     }
 }
 
