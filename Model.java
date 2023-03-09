@@ -10,7 +10,7 @@ import java.lang.Thread;
  * @author Xeng Yang 
  * Template for code was provided by Amy Larson
  */
-public class BoidModel extends Thread {
+public class Model extends Thread {
 
     private ArrayList<Boid> boids = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class BoidModel extends Thread {
     private SimulationGUI simulation;
 
     /** Default constructor. */
-    public BoidModel() {
+    public Model() {
         // All circels that might appear in the graphics window are created, but are not visible.
         for (int i=0; i<200; i++) {
             boids.add(new Boid());

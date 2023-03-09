@@ -37,7 +37,7 @@ public class SimulationGUI extends JFrame {
      * Sets the components and their positions in the gui.
      * Sets the Controller as the buttons' action listener.
      */
-    public SimulationGUI(Controller control, BoidModel model) {
+    public SimulationGUI(Controller control, Model model) {
 
         // Initialize the graphics window
         super("Simulation");
