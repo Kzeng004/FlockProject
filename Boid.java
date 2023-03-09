@@ -3,7 +3,6 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import java.util.Random;
-import java.util.Vector;
 
 /** Circle for drawing in a JFrame
  *
@@ -137,6 +136,9 @@ public class Boid extends JPanel {
     
     public Point getXY() {
         return xy;
+    }
+    public Point getDirection(){
+        return direction;
     }
     /**
      * Check to see if there is overlap with circles
