@@ -4,6 +4,7 @@
 
 import java.util.ArrayList;
 import java.lang.Thread;
+import java.util.Vector;
 
 /**
  * Models a collection of circles roaming about impacting other circles.
@@ -20,12 +21,13 @@ public class Model extends Thread {
     private int count = 0;
     /** Pauses simulation so circles do not move */
     private boolean paused = true;
-
     private int size = 0;
     private int avgPosPrecedence = 1;
     private int avgDirPrecedence = 1;
     private int moveAwayPrecedence = 1;
     private SimulationGUI simulation;
+    private Vector position;
+    private Vector direction;
 
     /** Default constructor. */
     public Model() {
@@ -46,60 +48,10 @@ public class Model extends Thread {
             // Move things only if the simulation is not paused
             //If circles are overlapping, change the color of the circles and then change the coordinate of both circles
             if (!paused) {
-                advanceBoids();
-                simulation.getContentPane().repaint();
-                /* 
-                for(int i = 4; i < boids.size()-4; i++){
-                    if(boids.get(i).overlaps(boids.get(i-1)) == true){
-                        boids.get(i).randomXY();
-                        boids.get(i-1).randomXY();
-                        boids.get(i).randomColor();
-                        boids.get(i-1).randomColor();
-                    }
-                    else if(boids.get(i).overlaps(boids.get(i+1)) == true){
-                        boids.get(i).randomXY();
-                        boids.get(i+1).randomXY();
-                        boids.get(i).randomColor();
-                        boids.get(i+1).randomColor();
-                    }
-                    if(boids.get(i).overlaps(boids.get(i-2)) == true){
-                        boids.get(i).randomXY();
-                        boids.get(i-2).randomXY();
-                        boids.get(i).randomColor();
-                        boids.get(i-2).randomColor();
-                    }
-                    else if(circles.get(i).overlaps(circles.get(i+2)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i+2).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i+2).randomColor();
-                    }
-                    if(circles.get(i).overlaps(circles.get(i-3)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i-3).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i-3).randomColor();
-                    }
-                    else if(circles.get(i).overlaps(circles.get(i+3)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i+3).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i+3).randomColor();
-                    }
-                    if(circles.get(i).overlaps(circles.get(i-4)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i-4).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i-4).randomColor();
-                    }
-                    else if(circles.get(i).overlaps(circles.get(i+4)) == true){
-                        circles.get(i).randomXY();
-                        circles.get(i+4).randomXY();
-                        circles.get(i).randomColor();
-                        circles.get(i+4).randomColor();
-                    } */
-                    
-                
+                //advanceBoids();
+                calcAvgDirection();
+                calcAvgPosition();
+                simulation.getContentPane().repaint();  
             }
             try {
                 Thread.sleep(stepSize);
@@ -184,14 +136,46 @@ public class Model extends Thread {
         }
 
     }
-    public double calcAvgPosition(){
-        double pos = 0;
-        return pos;
+    //Calculate the average position by taking the sum of all of the x position and the y position from the boids and dividing it
+    //Put results into position vector.
+    public Vector calcAvgPosition(){
+        int posxCount = 0;
+        int posx = 0;
+        int posyCount = 0;
+        int posy = 0;
+        for (int i=0; i<boids.size(); i++) {
+            posx = (posx + boids.get(i).getXY().x);
+            posxCount += 1;
+            posy = posy + boids.get(i).getXY().y; 
+            posyCount += 1;
+        }
+        posx = posx/posxCount;
+        posy = posy/posyCount;
+        position.add(posx);
+        position.add(posy);
+        return position;
     }
-    public double calcAvgDirection(){
-        double dir = 0;
-        return dir;
+
+    //Calculate the average direction by taking the sum of all of the x direction and the y direction from the boids and dividing it
+    //Put results into direction vector.
+    public Vector calcAvgDirection(){
+        int dirxCount = 0;
+        int dirx = 0;
+        int diryCount = 0;
+        int diry = 0;
+        for(int i =0; i< boids.size(); i++){
+            dirx = (dirx + boids.get(i).getDirection().x);
+            dirxCount += 1;
+            diry = (diry + boids.get(i).getDirection().y);
+            diryCount += 1;
+        }
+        dirx = dirx/dirxCount;
+        diry = diry/diryCount;
+        direction.add(dirx);
+        direction.add(diry);
+        return direction;
     }
+
     public void setRule1(int rule1){
         if (rule1 < 1) {
             rule1 = 1;

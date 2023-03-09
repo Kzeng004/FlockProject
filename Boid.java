@@ -175,6 +175,9 @@ public class Boid extends JPanel {
     public ArrayList<Point> getPoints() {
         return points;
     }
+    public Point getDirection(){
+        return direction;
+    }
     /**
      * Check to see if there is overlap with boids
      * @param other is the other boid
