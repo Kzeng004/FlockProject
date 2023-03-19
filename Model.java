@@ -144,9 +144,9 @@ public class Model extends Thread {
         int posyCount = 0;
         int posy = 0;
         for (int i=0; i<boids.size(); i++) {
-            posx = (posx + boids.get(i).getXY().x);
+            posx = (posx + boids.get(i).getCenter().x);
             posxCount += 1;
-            posy = posy + boids.get(i).getXY().y; 
+            posy = posy + boids.get(i).getCenter().y; 
             posyCount += 1;
         }
         posx = posx/posxCount;

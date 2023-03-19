@@ -29,7 +29,7 @@ public class Boid extends JPanel {
 
     private int height = 20;
     private int width = 20;
-    private double area = (height * width)/2.0;
+    private double area;
     
     /** Color specified in RGB */
     private Color color = new Color(10, 10, 10);
@@ -39,6 +39,7 @@ public class Boid extends JPanel {
     private Point v2 = new Point(20,20);
     private Point v3 = new Point(10,0);
     private ArrayList<Point> points = new ArrayList<>();
+    private Point center;
 
     /** Delta of location at each timestep */
     private Point direction = new Point(+1, +1);
@@ -56,6 +57,7 @@ public class Boid extends JPanel {
         v2 = new Point(v1.x + 20, v1.y);
         v3 = new Point(v1.x + 10, v1.y - 20);
         randomColor();
+        setArea(v3.y - v1.y, v2.x - v1.x);
         setLocation(v1.x, v1.y);
         randomDirection();
         showBoid();
@@ -82,6 +84,21 @@ public class Boid extends JPanel {
         area = (h * w)/2.0;
     }
 
+    /**
+     * Set center to point at center of boid
+     */
+    public void setCenter(){
+        center = new Point(v1.x + width/2, v1.y - height/2);
+    }
+
+    /**
+     * Give center of boid
+     * @return center of boid
+     */
+    public Point getCenter(){
+        return center;
+    }
+
 
     /** Default constructor */
     public Boid() {
@@ -95,6 +112,7 @@ public class Boid extends JPanel {
         points.add(v2);
         points.add(v3);
 
+        this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
         this.setLocation(v1.x, v1.y);
 
@@ -185,9 +203,7 @@ public class Boid extends JPanel {
      */
     public boolean determineNeighbor(Boid other){
         boolean touched = false;
-        Point thisCenter = new Point(v1.x + width/2, v1.y - height/2);
-        Point otherCenter = new Point(other.v1.x + other.width/2, other.v1.y - other.height/2);
-        double d = Math.sqrt((thisCenter.x - otherCenter.x) * (thisCenter.x - otherCenter.x) + (thisCenter.y - otherCenter.y) * (thisCenter.y - otherCenter.y));
+        double d = Math.sqrt((this.center.x - other.center.x) * (this.center.x - other.center.x) + (this.center.y - other.center.y) * (this.center.y - other.center.y));
         if(d <= this.height + other.height){
             touched = true;
             
