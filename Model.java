@@ -1,5 +1,5 @@
 /*
- * Circle Model.java
+ * Model.java
  */
 
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.lang.Thread;
 import java.util.Vector;
 
 /**
- * Models a collection of circles roaming about impacting other circles.
+ * Models a collection of boids roaming about impacting other boids.
  * @author Xeng Yang 
  * Template for code was provided by Amy Larson
  */
@@ -15,11 +15,13 @@ public class Model extends Thread {
 
     private ArrayList<Boid> boids = new ArrayList<>();
 
-    /** Time in ms. "Frame rate" for redrawing the circles. */
+    /** Time in ms. "Frame rate" for redrawing the boids. */
     private int stepSize = 200;
-    /** Current number of circles visible in the window. */
-    private int count = 0;
-    /** Pauses simulation so circles do not move */
+    /** Current number of boids visible in the window. */
+    private int count = 2;
+    /** Current speed of boids */
+    private int speed = 1;
+    /** Pauses simulation so boids do not move */
     private boolean paused = true;
     private int size = 0;
     private int avgPosPrecedence = 1;
@@ -31,7 +33,7 @@ public class Model extends Thread {
 
     /** Default constructor. */
     public Model() {
-        // All circels that might appear in the graphics window are created, but are not visible.
+        // All boids that might appear in the graphics window are created, but are not visible.
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
@@ -46,7 +48,7 @@ public class Model extends Thread {
         // Forever run the simulation
         while(true) {
             // Move things only if the simulation is not paused
-            //If circles are overlapping, change the color of the circles and then change the coordinate of both circles
+            //If boids are overlapping, change the color of the boids and then change the coordinate of both boids
             if (!paused) {
                 //advanceBoids();
                 calcAvgDirection();
@@ -61,24 +63,24 @@ public class Model extends Thread {
         }
     }
 
-    /** Pause the simulation - circles freeze. */
+    /** Pause the simulation - boids freeze. */
     public void pause() {
         paused = true;
     }
 
-    /** Circles move again */
+    /** Boids move again */
     public void play() {
         System.out.println("Playing now");
         paused = false;
 
     }
 
-    /** Move circles to next location */
+    /** Move boids to next location */
     public void advanceBoids() {
         for (int i=0; i<count; i++) {
-            // Advance each circle
+            // Advance each boid
             boids.get(i).step();
-            // Set the location, which prompts the viewer to newly display the circle
+            // Set the location, which prompts the viewer to newly display the boid
             boids.get(i).setLocation(boids.get(i).getPoints().get(0).x, boids.get(i).getPoints().get(0).y);
         }
     }
@@ -88,16 +90,16 @@ public class Model extends Thread {
         return boids;
     }
 
-    /** Reset circles */
+    /** Reset boids */
     public void setCount(int boidCount) {
-        System.out.println("Making circles!");
-        // Must be in bounds. Only 20 circles in the list.
+        System.out.println("Making boids!");
+        // Must be in bounds. Only 20 boids in the list.
         if (boidCount < 2) {
             boidCount = 2;
         } else if (boidCount > 200) {
             boidCount = 200;
         }
-        // Reset "count" circles, making them visible
+        // Reset "count" boids, making them visible
         count = boidCount;
         for (int i=0; i<count; i++) {
             boids.get(i).reset();
@@ -120,8 +122,8 @@ public class Model extends Thread {
         stepSize = (6-newSpeed)*80; // 80 to 400ms
     }
     /**
-     * Set the shape of the circles
-     * @param newShape the amount that will be cut from the circle
+     * Set the shape of the boids
+     * @param newShape the amount that will be cut from the boid
      */
 
     public void setShape(int newShape) {
