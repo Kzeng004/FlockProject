@@ -77,11 +77,17 @@ public class Model extends Thread {
 
     /** Move boids to next location */
     public void advanceBoids() {
-        for (int i=0; i<count; i++) {
+        for (Boid b: boids) {
             // Advance each boid
-            boids.get(i).step();
+            b.step();
             // Set the location, which prompts the viewer to newly display the boid
-            boids.get(i).setLocation(boids.get(i).getPoints().get(0).x, boids.get(i).getPoints().get(0).y);
+            b.setLocation(b.getPoints().get(0).x,b.getPoints().get(0).y);
+            // If any boid hits the side of the bounding box, make it warp to the other side
+            if (b.getX() < 50){
+                b.setLocation(50,b.getPoints().get(0).y);
+            }else if (b.getX() > 650){
+                b.setLocation(650,b.getPoints().get(0).y);
+            }
         }
     }
 
@@ -134,7 +140,7 @@ public class Model extends Thread {
         }
         size = newShape;
         for (int i=0; i<boids.size(); i++) {
-            boids.get(i).setSize(size, size);
+            boids.get(i).setArea(boids.get(i).getHeight(),boids.get(i).getWidth());
         }
 
     }
