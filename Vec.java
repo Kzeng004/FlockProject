@@ -35,6 +35,21 @@ public class Vec {
         return y;
     }
 
+    /** Calculates the magnitude of this vec
+     * @return This vec's magnitude
+     */
+    public double mag(){
+        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    }
+
+    /** Calculates the dot product of this vec and another
+     * @param v The other vec
+     * @return Dot product of this vec and another
+     */
+    public double dot(Vec v){
+        return x * v.x + y * v.y;
+    }
+
     /** Adds two vecs together
      * @param v Vec to be added to this vec
      */
@@ -49,6 +64,10 @@ public class Vec {
     public void subtract(Vec v){
         x -= v.x;
         y -= v.y;
+    }
+
+    public static Vec subtract(Vec v1, Vec v2){
+        return new Vec(v1.x - v2.x,v1.y - v2.y);
     }
 
     /** Multiplies two vecs
@@ -67,11 +86,21 @@ public class Vec {
         y /= val;
     }
 
-    /** Calculates the distance between this vec and another
-     * @param v Vec whose distance from this vec is being calculated
+    /** Calculates the distance between two vecs
+     * @param v1 First vec
+     * @param v2 Second vec
      * @return Distance between the two vecs
      */
-    public double distance(Vec v){
-        return Math.sqrt(Math.pow(x - v.x,2) + Math.pow(y - v.y,2));
+    public static double distance(Vec v1, Vec v2){
+        return Math.sqrt(Math.pow(v1.x - v2.x,2) + Math.pow(v1.y - v2.y,2));
+    }
+
+    /** Calculates the angle between two vecs
+     * @param v1 First vec
+     * @param v2 Second vec
+     * @return Angle between the two vecs
+     */
+    public static double angleBetween(Vec v1, Vec v2){
+        return Math.acos(v1.dot(v2) / (v1.mag() * v2.mag()));
     }
 }
