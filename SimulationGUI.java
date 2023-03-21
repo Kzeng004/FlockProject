@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class SimulationGUI extends JFrame {
 
     // Controller GUI Components
-    private final JLabel countLabel = new JLabel("Number of Boids (2-200): ");
+    private final JLabel countLabel = new JLabel("# of Boids (2-200): ");
     protected final JSlider count = new JSlider();
 
     private final JLabel speedLabel = new JLabel("Speed (1-5): ");
@@ -25,6 +25,15 @@ public class SimulationGUI extends JFrame {
 
     private final JLabel sizeLabel = new JLabel("Shape (10-40): ");
     protected final JSlider size = new JSlider();
+
+    private final JLabel rule1Label = new JLabel("rule1 (1-5): ");
+    protected final JSlider rule1 = new JSlider();
+
+    private final JLabel rule2Label = new JLabel("rule2 (1-5): ");
+    protected final JSlider rule2 = new JSlider();
+
+    private final JLabel rule3Label = new JLabel("rule3 (1-5): ");
+    protected final JSlider rule3 = new JSlider();
 
     private final JButton stop = new JButton("Stop");
     private final JButton play = new JButton("Play");
@@ -49,7 +58,7 @@ public class SimulationGUI extends JFrame {
 
         // Play Area
         BoundingBox playArea = new BoundingBox(700,600);
-        playArea.setLocation(50,150);
+        playArea.setLocation(300,150);
         getContentPane().add(playArea);
 
         // The Circles
@@ -81,17 +90,38 @@ public class SimulationGUI extends JFrame {
         this.size.setBounds(115, 80, 80, 30);
         this.getContentPane().add(size);
 
+        //rule1 label and text box
+        this.rule1Label.setBounds( 20, 110, 100, 30);
+        this.getContentPane().add(this.rule1Label);
+        
+        this.rule1.setBounds(115, 110, 80, 30);
+        this.getContentPane().add(this.rule1);
+        //rule2 label and the textbox
+        this.rule2Label.setBounds( 20, 140, 100, 30);
+        this.getContentPane().add(this.rule2Label);
+        
+        this.rule2.setBounds(115, 140, 80, 30);
+        this.getContentPane().add(rule2);
+        //rule3 label and the textbox
+        this.rule3Label.setBounds( 20, 170, 100, 30);
+        this.getContentPane().add(this.rule3Label);
+        
+        this.rule3.setBounds(115, 170, 80, 30);
+        this.getContentPane().add(rule3);
+
+        
+
         // place the restart button 
         this.restart.setBounds(200, 20, 120, 30);
         this.restart.addActionListener(control);
         this.getContentPane().add(this.restart);
         
         // place the play and stop buttons
-        this.play.setBounds(40, 110, 120, 30);
+        this.play.setBounds(40, 200, 120, 30);
         this.play.addActionListener(control);
         this.getContentPane().add(this.play);
         
-        this.stop.setBounds(150, 110, 120, 30);
+        this.stop.setBounds(150, 200, 120, 30);
         this.stop.addActionListener(control);
         this.getContentPane().add(this.stop);
     }
