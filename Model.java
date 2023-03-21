@@ -51,8 +51,8 @@ public class Model extends Thread {
             //If boids are overlapping, change the color of the boids and then change the coordinate of both boids
             if (!paused) {
                 advanceBoids();
-                calcAvgDirection();
-                calcAvgPosition();
+                //calcAvgDirection();
+                //calcAvgPosition();
                 simulation.getContentPane().repaint();  
             }
             try {
