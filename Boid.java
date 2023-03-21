@@ -18,6 +18,7 @@ public class Boid extends JPanel {
         return nextId++;
     }
     private int id;
+    private boolean touching = false;
     /** x and y bounds to keep boids in the playAreas */
     private final int xMINRANGE = 60;
     private final int xMAXRANGE = 740;
@@ -218,20 +219,17 @@ public class Boid extends JPanel {
     }
     /**
      * Check to see if there is overlap with boids
-     * @param other is the other boid
-     * @return
+     * @param other The other boid
      */
-    public boolean determineNeighbor(Boid other){
-        boolean touched = false;
+    public void determineNeighbor(Boid other){ //Return type Vec?
         double d = Math.sqrt((this.center.x - other.center.x) * (this.center.x - other.center.x) + (this.center.y - other.center.y) * (this.center.y - other.center.y));
         if(d <= this.height + other.height){
-            touched = true;
+            touching = true;
             
         }
         else{
-            touched = false;
+            touching = false;
         }
-        return touched;
     }
 
     @Override
