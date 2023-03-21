@@ -28,8 +28,8 @@ public class Model extends Thread {
     private int avgDirPrecedence = 1;
     private int moveAwayPrecedence = 1;
     private SimulationGUI simulation;
-    private Vector position;
-    private Vector direction;
+    private Vector position = new Vector();
+    private Vector direction = new Vector();
 
     /** Default constructor. */
     public Model() {
@@ -50,7 +50,7 @@ public class Model extends Thread {
             // Move things only if the simulation is not paused
             //If boids are overlapping, change the color of the boids and then change the coordinate of both boids
             if (!paused) {
-                //advanceBoids();
+                advanceBoids();
                 calcAvgDirection();
                 calcAvgPosition();
                 simulation.getContentPane().repaint();  
@@ -65,6 +65,7 @@ public class Model extends Thread {
 
     /** Pause the simulation - boids freeze. */
     public void pause() {
+        System.out.println("Paused now");
         paused = true;
     }
 
@@ -84,9 +85,9 @@ public class Model extends Thread {
             b.setLocation(b.getPoints().get(0).x,b.getPoints().get(0).y);
             // If any boid hits the side of the bounding box, make it warp to the other side
             if (b.getX() < 50){
-                b.setLocation(50,b.getPoints().get(0).y);
-            }else if (b.getX() > 650){
                 b.setLocation(650,b.getPoints().get(0).y);
+            }else if (b.getX() > 650){
+                b.setLocation(50,b.getPoints().get(0).y);
             }
         }
     }
