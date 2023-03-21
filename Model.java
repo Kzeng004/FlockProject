@@ -4,7 +4,7 @@
 
 import java.util.ArrayList;
 import java.lang.Thread;
-import java.util.Vector;
+import java.util.Random;
 
 /**
  * Models a collection of boids roaming about impacting other boids.
@@ -12,6 +12,8 @@ import java.util.Vector;
  * Template for code was provided by Amy Larson
  */
 public class Model extends Thread {
+
+    Random rand = new Random();
 
     private ArrayList<Boid> boids = new ArrayList<>();
 
@@ -28,8 +30,8 @@ public class Model extends Thread {
     private int avgDirPrecedence = 1;
     private int moveAwayPrecedence = 1;
     private SimulationGUI simulation;
-    private Vector position = new Vector();
-    private Vector direction = new Vector();
+    private Vec position;
+    private Vec direction;
 
     /** Default constructor. */
     public Model() {
@@ -37,6 +39,8 @@ public class Model extends Thread {
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
+        position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
+        direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
     }
 
     public void setSim(SimulationGUI sim) {
@@ -146,8 +150,8 @@ public class Model extends Thread {
 
     }
     //Calculate the average position by taking the sum of all of the x position and the y position from the boids and dividing it
-    //Put results into position vector.
-    public Vector calcAvgPosition(){
+    //Put results into position Vec.
+    public Vec calcAvgPosition(){
         int posxCount = 0;
         int posx = 0;
         int posyCount = 0;
@@ -160,14 +164,14 @@ public class Model extends Thread {
         }
         posx = posx/posxCount;
         posy = posy/posyCount;
-        position.add(posx);
-        position.add(posy);
+        Vec posVec = new Vec(posx,posy);
+        position.add(posVec);
         return position;
     }
 
     //Calculate the average direction by taking the sum of all of the x direction and the y direction from the boids and dividing it
-    //Put results into direction vector.
-    public Vector calcAvgDirection(){
+    //Put results into direction Vec.
+    public Vec calcAvgDirection(){
         int dirxCount = 0;
         int dirx = 0;
         int diryCount = 0;
@@ -180,8 +184,8 @@ public class Model extends Thread {
         }
         dirx = dirx/dirxCount;
         diry = diry/diryCount;
-        direction.add(dirx);
-        direction.add(diry);
+        Vec dirVec = new Vec(dirx,diry);
+        direction.add(dirVec);
         return direction;
     }
 
