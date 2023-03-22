@@ -26,14 +26,14 @@ public class SimulationGUI extends JFrame {
     private final JLabel sizeLabel = new JLabel("Shape (10-40): ");
     protected final JSlider size = new JSlider();
 
-    private final JLabel rule1Label = new JLabel("rule1 (1-5): ");
-    protected final JSlider rule1 = new JSlider();
+    private final JLabel avgPosLabel = new JLabel("Average Position Rule Weight (1-5): ");
+    protected final JSlider avgPos = new JSlider();
 
-    private final JLabel rule2Label = new JLabel("rule2 (1-5): ");
-    protected final JSlider rule2 = new JSlider();
+    private final JLabel avgDirLabel = new JLabel("Average Direction Rule Weight (1-5): ");
+    protected final JSlider avgDir = new JSlider();
 
-    private final JLabel rule3Label = new JLabel("rule3 (1-5): ");
-    protected final JSlider rule3 = new JSlider();
+    private final JLabel mainDistLabel = new JLabel("Maintaining Distance Rule Weight (1-5): ");
+    protected final JSlider mainDist = new JSlider();
 
     private final JButton stop = new JButton("Stop");
     private final JButton play = new JButton("Play");
@@ -90,29 +90,29 @@ public class SimulationGUI extends JFrame {
         this.size.setBounds(115, 80, 80, 30);
         this.getContentPane().add(size);
 
-        //rule1 label and text box
-        this.rule1Label.setBounds( 20, 110, 100, 30);
-        this.getContentPane().add(this.rule1Label);
+        //avgPos label and text box
+        this.avgPosLabel.setBounds( 200, 20, 400, 30);
+        this.getContentPane().add(this.avgPosLabel);
         
-        this.rule1.setBounds(115, 110, 80, 30);
-        this.getContentPane().add(this.rule1);
-        //rule2 label and the textbox
-        this.rule2Label.setBounds( 20, 140, 100, 30);
-        this.getContentPane().add(this.rule2Label);
+        this.avgPos.setBounds(415, 20, 80, 30);
+        this.getContentPane().add(this.avgPos);
+        //avgDir label and the textbox
+        this.avgDirLabel.setBounds( 200, 50, 400, 30);
+        this.getContentPane().add(this.avgDirLabel);
         
-        this.rule2.setBounds(115, 140, 80, 30);
-        this.getContentPane().add(rule2);
-        //rule3 label and the textbox
-        this.rule3Label.setBounds( 20, 170, 100, 30);
-        this.getContentPane().add(this.rule3Label);
+        this.avgDir.setBounds(415, 50, 80, 30);
+        this.getContentPane().add(avgDir);
+        //mainDist label and the textbox
+        this.mainDistLabel.setBounds( 200, 80, 400, 30);
+        this.getContentPane().add(this.mainDistLabel);
         
-        this.rule3.setBounds(115, 170, 80, 30);
-        this.getContentPane().add(rule3);
+        this.mainDist.setBounds(415, 80, 80, 30);
+        this.getContentPane().add(mainDist);
 
         
 
         // place the restart button 
-        this.restart.setBounds(200, 20, 120, 30);
+        this.restart.setBounds(500, 20, 120, 30);
         this.restart.addActionListener(control);
         this.getContentPane().add(this.restart);
         
