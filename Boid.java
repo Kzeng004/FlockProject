@@ -251,8 +251,7 @@ public class Boid extends JPanel {
     public Vec seek(Vec target){
         Vec steer = Vec.subtract(target, location);
         return steer;
-
-        }
+    }
 
     public Vec cohesion(ArrayList<Boid> boids){
         int distance = 15;
@@ -270,8 +269,8 @@ public class Boid extends JPanel {
             return seek(target);
         }
         return target;
+    }
 
-        }
     public Vec separation(ArrayList<Boid> boids){
         double amountSeparated = 10;
         Vec steer = new Vec(0, 0);
@@ -289,8 +288,5 @@ public class Boid extends JPanel {
             steer.divide(count);
         }
         return steer;
-        }
     }
-
-        
-        
+}

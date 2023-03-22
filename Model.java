@@ -62,10 +62,10 @@ public class Model extends Thread {
                 Vec avgP = calcAvgPosition();
                 Vec avgD = calcAvgDirection();
                 for (Boid b: boids){
-                    //Vec sep = findSeparation();
-                    //b.setForce(avgP,avgD);
+                    Vec sep = b.separation(boids);
+                    b.setForce(avgP,avgD);
                 }
-                //simulation.getContentPane().repaint();
+                simulation.getContentPane().repaint();
             }
             try {
                 Thread.sleep(stepSize);
