@@ -17,6 +17,7 @@ public class Model extends Thread {
 
     Random rand = new Random();
 
+    /** List of all boids in the model */
     private ArrayList<Boid> boids = new ArrayList<>();
 
     /** Time in ms. "Frame rate" for redrawing the boids. */
@@ -27,9 +28,13 @@ public class Model extends Thread {
     private int speed = 1;
     /** Pauses simulation so boids do not move */
     private boolean paused = true;
+    /** Current size of boids */
     private int size = 0;
+    /** Current "weight" of the model's average position rule */
     private int avgPosWeight = 1;
+    /** Current "weight" of the model's average direction rule */
     private int avgDirWeight = 1;
+    /** Current "weight" of the model's separation rule */
     private int sepWeight = 1;
     private SimulationGUI simulation;
     private Vec position;
@@ -51,6 +56,7 @@ public class Model extends Thread {
         simulation = sim;
     }
 
+    /** Run the model */
     @Override
     public void run() {
         // Forever run the simulation
@@ -109,7 +115,10 @@ public class Model extends Thread {
         return boids;
     }
 
-    /** Reset boids */
+    /** 
+     * Reset the number of boids
+     * @param boidCount new number of boids in the model
+    */
     public void setCount(int boidCount) {
         System.out.println("Making boids!");
         // Must be in bounds. Only 20 boids in the list.
@@ -129,7 +138,10 @@ public class Model extends Thread {
         }
     }
 
-    /** Set speed of simulation from 1 (slow) to 5 (fast) */
+    /**
+     * Set speed of simulation from 1 (slow) to 5 (fast)
+     * @param newSpeed speed to set the model to
+     */
     public void setSpeed(int newSpeed) {
         // speed is between 1 (slow) and 5 (fastest)
         // low speed = high step size
@@ -139,7 +151,9 @@ public class Model extends Thread {
             newSpeed = 5;
         }
         stepSize = (6-newSpeed)*80; // 80 to 400ms
+        speed = newSpeed;
     }
+
     /**
      * Set the shape of the boids
      * @param newShape the amount that will be cut from the boid
@@ -245,7 +259,5 @@ public class Model extends Thread {
         }
         sepWeight = rule3 * 20;
     }
-
-
 }
 

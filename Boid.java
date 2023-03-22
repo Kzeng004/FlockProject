@@ -18,6 +18,7 @@ public class Boid extends JPanel {
         return nextId++;
     }
     private int id;
+    /** Whether the boid is touching another boid */
     private boolean touching = false;
     /** x and y bounds to keep boids in the playAreas */
     private final int xMINRANGE = 60;
@@ -25,12 +26,10 @@ public class Boid extends JPanel {
     private final int yMINRANGE = 160;
     private final int yMAXRANGE = 740;
 
-    /** Fixed size */
-    //public int radius = 20;
-
+    /** Measurements of each triangular boid */
     private int height = 20;
     private int width = 20;
-    private double area;
+    private double area = 200;
     
     /** Color specified in RGB */
     private Color color = new Color(10, 10, 10);
@@ -41,12 +40,20 @@ public class Boid extends JPanel {
     private Point v3 = new Point(10,0);
     private ArrayList<Point> points = new ArrayList<>();
     private Point center;
+    public ArrayList<Point> getPoints() {
+        return points;
+    }
 
     /** Delta of location at each timestep */
     private Point direction = new Point(+1, +1);
+    public Point getDirection(){
+        return direction;
+    }
 
     /** Boids have many random components */
     private Random random = new Random();
+
+    /** Location of boid */
     private Vec location;
 
     /** Drawn in window when visible */
@@ -60,24 +67,25 @@ public class Boid extends JPanel {
         v3 = new Point(v1.x + 10, v1.y - 20);
         randomColor();
         setArea(v3.y - v1.y, v2.x - v1.x);
-        setLocation(v1.x, v1.y);
+        location = new Vec(v1.x,v1.y);
+        //setLocation(v1.x, v1.y);
         randomDirection();
         //pointInDirection();
         showBoid();
     }
 
-    /** Boid is visible */
+    /** Makes boid visible */
     public void showBoid() {
         visible = true;
     }
 
-    /** Boid is not visible */
+    /** Makes boid invisible */
     public void hideBoid() {
         visible = false;
     }
 
     /**
-     * set the area to (h * w) / 2
+     * Sets area to (h * w) / 2
      * @param h Desired height
      * @param w Desired width
      */
@@ -88,7 +96,7 @@ public class Boid extends JPanel {
     }
 
     /**
-     * Set center to point at center of boid
+     * Sets center point at center of boid
      */
     public void setCenter(){
         center = new Point(v1.x + width/2, v1.y - height/2);
@@ -117,8 +125,7 @@ public class Boid extends JPanel {
 
         this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
-        location = new Vec(v1.x, v1.y);
-        //this.pointInDirection();
+        location = new Vec(v1.x,v1.y);
         //this.setLocation(v1.x, v1.y);
         //this.pointInDirection();
 
@@ -212,14 +219,6 @@ public class Boid extends JPanel {
         //pointInDirection();
     }
 
-
-    
-    public ArrayList<Point> getPoints() {
-        return points;
-    }
-    public Point getDirection(){
-        return direction;
-    }
     /**
      * Check to see if there is overlap with boids
      * @param other The other boid
@@ -237,7 +236,7 @@ public class Boid extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        // This is called every time the circle location is reset in the CircleModel
+        // This is called every time the boid location is reset in the Model
         // System.out.print(" P"+id);
         super.paintComponent(g);
         if (visible) {
@@ -258,6 +257,11 @@ public class Boid extends JPanel {
         return steer;
     }
 
+    /**
+     * FILL IN!!!!!!!!!!!!
+     * @param boids List of boids in the Model
+     * @return
+     */
     public Vec cohesion(ArrayList<Boid> boids){
         int distance = 15;
         Vec target = new Vec(0,0);
@@ -276,6 +280,11 @@ public class Boid extends JPanel {
         return target; 
     }
 
+    /**
+     * FILL IN!!!!!!!!!!!!!!!!!!!
+     * @param boids List of boids in the Model
+     * @return
+     */
     public Vec separation(ArrayList<Boid> boids){
         double amountSeparated = 10;
         Vec steer = new Vec(0, 0);

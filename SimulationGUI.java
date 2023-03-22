@@ -61,7 +61,7 @@ public class SimulationGUI extends JFrame {
         playArea.setLocation(300,150);
         getContentPane().add(playArea);
 
-        // The Circles
+        // The Boids
         boids = model.getBoids();
         for (Boid boid: boids) {
             boid.setLocation(boid.getPoints().get(0).x,boid.getPoints().get(0).y);
@@ -70,39 +70,42 @@ public class SimulationGUI extends JFrame {
         
         // Controller Display
 
-        // Place the circle count label and text box
+        // Boid count label and text box
         this.countLabel.setBounds(20,20,100,30);
         this.getContentPane().add(this.countLabel);
         
         this.count.setBounds(115, 20, 80, 30);
         this.getContentPane().add(count);
         
-        // place the sim speed label and text box
+        // Sim speed label and text box
         this.speedLabel.setBounds( 20, 50, 100, 30);
         this.getContentPane().add(this.speedLabel);
         
         this.speed.setBounds(115, 50, 80, 30);
         this.getContentPane().add(this.speed);
-        //shape label and the textbox
+
+        // Shape label and the textbox
         this.sizeLabel.setBounds( 20, 80, 100, 30);
         this.getContentPane().add(this.sizeLabel);
         
         this.size.setBounds(115, 80, 80, 30);
         this.getContentPane().add(size);
 
-        //avgPos label and text box
+        // avgPos label and text box
         this.avgPosLabel.setBounds( 200, 20, 400, 30);
         this.getContentPane().add(this.avgPosLabel);
         
         this.avgPos.setBounds(415, 20, 80, 30);
         this.getContentPane().add(this.avgPos);
-        //avgDir label and the textbox
+
+        // avgDir label and the textbox
         this.avgDirLabel.setBounds( 200, 50, 400, 30);
         this.getContentPane().add(this.avgDirLabel);
         
         this.avgDir.setBounds(415, 50, 80, 30);
         this.getContentPane().add(avgDir);
-        //sep label and the textbox
+
+        // sep label and the textbox
         this.sepLabel.setBounds( 200, 80, 400, 30);
         this.getContentPane().add(this.sepLabel);
         
@@ -111,16 +114,17 @@ public class SimulationGUI extends JFrame {
 
         
 
-        // place the restart button 
+        // Restart button 
         this.restart.setBounds(500, 20, 120, 30);
         this.restart.addActionListener(control);
         this.getContentPane().add(this.restart);
         
-        // place the play and stop buttons
+        // Play button
         this.play.setBounds(40, 200, 120, 30);
         this.play.addActionListener(control);
         this.getContentPane().add(this.play);
         
+        // Stop button
         this.stop.setBounds(150, 200, 120, 30);
         this.stop.addActionListener(control);
         this.getContentPane().add(this.stop);
