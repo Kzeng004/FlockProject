@@ -268,7 +268,7 @@ public class Boid extends JPanel {
             target.divide(count);
             return seek(target);
         }
-        return target;
+        return target; 
     }
 
     public Vec separation(ArrayList<Boid> boids){
