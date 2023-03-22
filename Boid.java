@@ -47,6 +47,7 @@ public class Boid extends JPanel {
 
     /** Circels have many random components */
     private Random random = new Random();
+    private Vec location;
 
     /** Drawn in window when visible */
     private boolean visible = false;
@@ -116,6 +117,8 @@ public class Boid extends JPanel {
 
         this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
+        location = new Vec(v1.x, v1.y);
+        this.pointInDirection();
         this.setLocation(v1.x, v1.y);
         //this.pointInDirection();
 
@@ -244,4 +247,50 @@ public class Boid extends JPanel {
             g.fillPolygon(p);
         }
     }
-}
+
+    public Vec seek(Vec target){
+        Vec steer = Vec.subtract(target, location);
+        return steer;
+
+        }
+
+    public Vec cohesion(ArrayList<Boid> boids){
+        int distance = 15;
+        Vec target = new Vec(0,0);
+        int count = 0;
+        for(Boid b : boids){
+            int dist = (int) Vec.distance(location, b.location);
+            if((dist > 0) && (dist < distance)){
+                target.add(b.location);
+                count++;
+            }
+        }
+        if(count > 0){
+            target.divide(count);
+            return seek(target);
+        }
+        return target;
+
+        }
+    public Vec separation(ArrayList<Boid> boids){
+        double amountSeparated = 10;
+        Vec steer = new Vec(0, 0);
+        int count = 0;
+        for(Boid b: boids){
+            double d = Vec.distance(location, b.location);
+            if((d > 0) && (d < amountSeparated)){
+                Vec difference = Vec.subtract(location, b.location);
+                difference.divide((int)d);
+                steer.add(difference);
+                count++;
+            }
+        }
+        if(count > 0){
+            steer.divide(count);
+        }
+        return steer;
+        }
+    }
+
+        
+        
