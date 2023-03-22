@@ -5,9 +5,10 @@ https://docs.google.com/document/d/1n_8b3t7i42_2JzQcKiWK9j6iOqrzB8hCL9ffSwjsGe8/
 
 3 Resources:
 
-1) https://brainyloop.com/how-to-simulate-flocking-behavior/
-2) https://faculty.cc.gatech.edu/~turk/bio_sim/hw2.html
-3) https://processing.org/examples/flocking.html
+1) https://brainyloop.com/how-to-simulate-flocking-behavior/ - This is an explanation of flocking that provides a UML diagram of potential code for a flocking simulation and a description of three rules to be followed.
+2) https://faculty.cc.gatech.edu/~turk/bio_sim/hw2.html - This is an assignment description for a project similar to this one, detailing many things that can be included in a flocking simulation.
+3) https://processing.org/examples/flocking.html - This is an example of code for a flocking simulation and a visual of the code running.
+4) https://rosettacode.org/wiki/Boids/Java - This is an example of code for a flocking simulation, all classes in one document. We used the name, variables, and methods of the Vec class from this source in our own Vec class.
 ---------------------------------------------------------------------------------------------
 Description:
  In this project, we want to create a simulation of the flocking behavior with boids. This end result contains a GUI that will allow the user to select the number of boids, the speed as well as some other options that the user to control using a slider.
