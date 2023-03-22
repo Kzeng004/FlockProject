@@ -118,8 +118,8 @@ public class Boid extends JPanel {
         this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
         location = new Vec(v1.x, v1.y);
-        this.pointInDirection();
-        this.setLocation(v1.x, v1.y);
+        //this.pointInDirection();
+        //this.setLocation(v1.x, v1.y);
         //this.pointInDirection();
 
         // Make the box/panel on which the boid is drawn transparent
