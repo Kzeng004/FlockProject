@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.lang.Thread;
 import java.util.Random;
 
+import javax.xml.stream.Location;
+
 /**
  * Models a collection of boids roaming about impacting other boids.
  * @author Xeng Yang 
@@ -38,9 +40,11 @@ public class Model extends Thread {
         // All boids that might appear in the graphics window are created, but are not visible.
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
+            
         }
         position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
         direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
+        
     }
 
     public void setSim(SimulationGUI sim) {
@@ -192,7 +196,10 @@ public class Model extends Thread {
         direction.add(dirVec);
         return direction;
     }
-
+    /**
+     * Will be changed to allow user to control cohesion of boids
+     * @param rule1
+     */
     public void setRule1(int rule1){
         if (rule1 < 1) {
             rule1 = 1;
@@ -200,6 +207,9 @@ public class Model extends Thread {
             rule1 = 5;
         }
     }
+    /**
+     * Will be changed to allow user to control how far serpareted boids are
+     */
     public void setRule2(int rule2){
         if (rule2 < 1) {
             rule2 = 1;
@@ -207,6 +217,10 @@ public class Model extends Thread {
             rule2 = 5;
         }
     }
+    /**
+     * Will be changed to allow user to control how closly aligned boids are 
+     * @param rule3
+     */
     public void setRule3(int rule3){
         if (rule3 < 1) {
             rule3 = 1;
@@ -214,5 +228,7 @@ public class Model extends Thread {
             rule3 = 5;
         }
     }
+
+
 }
 
