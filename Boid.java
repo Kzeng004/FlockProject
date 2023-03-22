@@ -61,7 +61,7 @@ public class Boid extends JPanel {
         setArea(v3.y - v1.y, v2.x - v1.x);
         setLocation(v1.x, v1.y);
         randomDirection();
-        pointInDirection();
+        //pointInDirection();
         showBoid();
     }
 
@@ -117,7 +117,7 @@ public class Boid extends JPanel {
         this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
         this.setLocation(v1.x, v1.y);
-        this.pointInDirection();
+        //this.pointInDirection();
 
         // Make the box/panel on which the boid is drawn transparent
         this.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
@@ -128,7 +128,7 @@ public class Boid extends JPanel {
     }
 
     /** Make boid point in the direction that the boid is moving */
-    public void pointInDirection(){
+    /*public void pointInDirection(){
         if (direction.x > 0){
             v1.x = center.x + direction.x;
         }else{
@@ -140,7 +140,7 @@ public class Boid extends JPanel {
             v1.y = center.y - direction.y;
         }
         //ADD v2 & v3!!!
-    }
+    }*/
 
     /** Randomly assign its location based on the fixed ranges. */
     public Point randomXY(Point v) {
@@ -155,7 +155,7 @@ public class Boid extends JPanel {
         // set in a random direction
         direction.x = random.nextInt(6) - 3;
         direction.y = random.nextInt(6) - 3;
-        pointInDirection();
+        //pointInDirection();
     }
 
     /** Randomly assign the RGB components */
@@ -206,7 +206,7 @@ public class Boid extends JPanel {
             }
         }
 
-        pointInDirection();
+        //pointInDirection();
     }
 
 
