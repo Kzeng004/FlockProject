@@ -19,6 +19,9 @@ public class Model extends Thread {
 
     /** List of all boids in the model */
     private ArrayList<Boid> boids = new ArrayList<>();
+    public ArrayList<Boid> getBoids() {
+        return boids;
+    }
 
     /** Time in ms. "Frame rate" for redrawing the boids. */
     private int stepSize = 200;
@@ -45,11 +48,12 @@ public class Model extends Thread {
         // All boids that might appear in the graphics window are created, but are not visible.
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
-            
         }
         position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
         direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
-        
+        for (Boid b: boids){
+            b.showBoid();
+        }
     }
 
     public void setSim(SimulationGUI sim) {
@@ -108,11 +112,6 @@ public class Model extends Thread {
                 b.setLocation(50,b.getPoints().get(0).y);
             }
         }
-    }
-
-
-    public ArrayList<Boid> getBoids() {
-        return boids;
     }
 
     /** 

@@ -1,7 +1,5 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Polygon;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 import java.util.*;
 
@@ -62,6 +60,7 @@ public class Boid extends JPanel {
 
     /** Reassigns member variables to the boid. */
     public void reset() {
+        System.out.println("resetting boid!");
         v1 = randomXY(v1);
         v2 = new Point(v1.x + 20, v1.y);
         v3 = new Point(v1.x + 10, v1.y - 20);
@@ -72,6 +71,7 @@ public class Boid extends JPanel {
         randomDirection();
         //pointInDirection();
         showBoid();
+        System.out.println("Boid shown!!!");
     }
 
     /** Makes boid visible */

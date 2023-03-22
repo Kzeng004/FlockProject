@@ -40,30 +40,34 @@ public class Controller implements ActionListener {
             // Set the model on pause
             model.pause();
             
-
-            // Create the circles based on count
+            // Create the boids based on count
             Integer count = Integer.valueOf(this.view.count.getValue());
             model.setCount(count);
 
             // Set the speed of the simulation
             Integer speed = Integer.valueOf(this.view.speed.getValue());
             model.setSpeed(speed);
-            
-            //set shape of the circles
+
+            // Set shape of the boids
             Integer size = Integer.valueOf(this.view.size.getValue());
             model.setShape(size);
 
-            
-        }
-        else if( ae.getActionCommand().equals( "Stop")) {
+            // Set "weight" of the average position rule
+            Integer posiWeight = Integer.valueOf(this.view.avgPos.getValue());
+            model.setAvgPos(posiWeight);
+
+            // Set "weight" of the average distance rule
+            Integer direcWeight = Integer.valueOf(this.view.avgDir.getValue());
+            model.setAvgDir(direcWeight);
+
+            // Set "weight" of the separation rule
+            Integer sepWeight = Integer.valueOf(this.view.sep.getValue());
+            model.setSep(sepWeight);
+
+        } else if( ae.getActionCommand().equals( "Stop")) {
             model.pause();
-        }
-
-        else if( ae.getActionCommand().equals( "Play")) {
+        } else if( ae.getActionCommand().equals( "Play")) {
             model.play();
-            
-            
         }
-
     }
 }
