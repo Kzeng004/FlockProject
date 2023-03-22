@@ -9,6 +9,14 @@ public class Point {
         y = yy;
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
     public String toString() {
         return "["+x+","+y+"]";
     }

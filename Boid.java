@@ -45,7 +45,7 @@ public class Boid extends JPanel {
     /** Delta of location at each timestep */
     private Point direction = new Point(+1, +1);
 
-    /** Circels have many random components */
+    /** Boids have many random components */
     private Random random = new Random();
     private Vec location;
 
@@ -53,7 +53,7 @@ public class Boid extends JPanel {
     private boolean visible = false;
 
 
-    /** Reassigns member variables to the circle. */
+    /** Reassigns member variables to the boid. */
     public void reset() {
         v1 = randomXY(v1);
         v2 = new Point(v1.x + 20, v1.y);
@@ -66,12 +66,12 @@ public class Boid extends JPanel {
         showBoid();
     }
 
-    /** Circle is visible */
+    /** Boid is visible */
     public void showBoid() {
         visible = true;
     }
 
-    /** Circle is not visible */
+    /** Boid is not visible */
     public void hideBoid() {
         visible = false;
     }
@@ -248,6 +248,11 @@ public class Boid extends JPanel {
         }
     }
 
+    /**
+     * Returns the vec that will be used to steer the boid in the correct direction
+     * @param target The vec that the boid should move to
+     * @return The vec
+     */
     public Vec seek(Vec target){
         Vec steer = Vec.subtract(target, location);
         return steer;
@@ -288,5 +293,20 @@ public class Boid extends JPanel {
             steer.divide(count);
         }
         return steer;
+    }
+
+    /**
+     * Combines the vecs into one
+     * @param pos Average position vec
+     * @param newPos Current value on average position slider
+     * @param dir Average direction vec
+     * @param newDir Current value on average direction slider
+     * @param sep Separation vec
+     * @param newSep Current value on separation slider
+     */
+    public void setForce(Vec pos,int newPos,Vec dir,int newDir,Vec sep,int newSep){
+        int newX = direction.getX() + (pos.getX() / newPos) + (dir.getX() / newDir) + (sep.getX() / newSep);
+        int newY = direction.getY() + (pos.getY() / newPos) + (dir.getY() / newDir) + (sep.getY() / newSep);
+        direction = new Point(newX,newY);
     }
 }

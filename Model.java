@@ -28,9 +28,9 @@ public class Model extends Thread {
     /** Pauses simulation so boids do not move */
     private boolean paused = true;
     private int size = 0;
-    private int avgPosPrecedence = 1;
-    private int avgDirPrecedence = 1;
-    private int moveAwayPrecedence = 1;
+    private int avgPosWeight = 1;
+    private int avgDirWeight = 1;
+    private int sepWeight = 1;
     private SimulationGUI simulation;
     private Vec position;
     private Vec direction;
@@ -63,7 +63,7 @@ public class Model extends Thread {
                 Vec avgD = calcAvgDirection();
                 for (Boid b: boids){
                     Vec sep = b.separation(boids);
-                    b.setForce(avgP,avgD);
+                    b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);
                 }
                 simulation.getContentPane().repaint();
             }
@@ -157,76 +157,93 @@ public class Model extends Thread {
         }
 
     }
-    //Calculate the average position by taking the sum of all of the x position and the y position from the boids and dividing it
-    //Put results into position Vec.
+
+    /**
+     * Calculates the average position of all boids
+     * @return Position Vec with average position of all boids
+     */
     public Vec calcAvgPosition(){
         int posxCount = 0;
         int posx = 0;
         int posyCount = 0;
         int posy = 0;
+        //Calculate the sum of all x and y positions
         for (int i=0; i<boids.size(); i++) {
             posx = (posx + boids.get(i).getCenter().x);
             posxCount += 1;
             posy = posy + boids.get(i).getCenter().y; 
             posyCount += 1;
         }
+        //Divide sum of positions by number of boids
         posx = posx/posxCount;
         posy = posy/posyCount;
         Vec posVec = new Vec(posx,posy);
+        //Put results into position Vec
         position.add(posVec);
         return position;
     }
 
-    //Calculate the average direction by taking the sum of all of the x direction and the y direction from the boids and dividing it
-    //Put results into direction Vec.
+    /**
+     * Calculates the average direction of all boids
+     * @return Direction Vec with average direction of all boids
+     */
     public Vec calcAvgDirection(){
         int dirxCount = 0;
         int dirx = 0;
         int diryCount = 0;
         int diry = 0;
+        //Calculate the sum of all x and y directions
         for(int i =0; i< boids.size(); i++){
             dirx = (dirx + boids.get(i).getDirection().x);
             dirxCount += 1;
             diry = (diry + boids.get(i).getDirection().y);
             diryCount += 1;
         }
+        //Divide sum of directions by number of boids
         dirx = dirx/dirxCount;
         diry = diry/diryCount;
+        //Put results into direction Vec
         Vec dirVec = new Vec(dirx,diry);
         direction.add(dirVec);
         return direction;
     }
     /**
-     * Will be changed to allow user to control cohesion of boids
-     * @param rule1
+     * Sets cohesion of boids
+     * @param rule1 Setting on average position slider
      */
-    public void setRule1(int rule1){
+    public void setAvgPos(int rule1){
         if (rule1 < 1) {
             rule1 = 1;
         } else if (rule1 > 5) {
             rule1 = 5;
         }
+        avgPosWeight = rule1 * 20;
     }
+
     /**
-     * Will be changed to allow user to control how far serpareted boids are
+     * Sets direction of boids
+     * @param rule2 Setting on average direction slider
      */
-    public void setRule2(int rule2){
+    public void setAvgDir(int rule2){
         if (rule2 < 1) {
             rule2 = 1;
         } else if (rule2 > 5) {
             rule2 = 5;
         }
+        avgDirWeight = rule2 * 20;
     }
+
     /**
-     * Will be changed to allow user to control how closly aligned boids are 
-     * @param rule3
+     * Sets separation of boids
+     * @param rule3 Setting on separation slider
      */
-    public void setRule3(int rule3){
+    public void setSep(int rule3){
         if (rule3 < 1) {
             rule3 = 1;
         } else if (rule3 > 5) {
             rule3 = 5;
         }
+        sepWeight = rule3 * 20;
     }
 
 

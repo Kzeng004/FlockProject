@@ -32,8 +32,8 @@ public class SimulationGUI extends JFrame {
     private final JLabel avgDirLabel = new JLabel("Average Direction Rule Weight (1-5): ");
     protected final JSlider avgDir = new JSlider();
 
-    private final JLabel mainDistLabel = new JLabel("Maintaining Distance Rule Weight (1-5): ");
-    protected final JSlider mainDist = new JSlider();
+    private final JLabel sepLabel = new JLabel("Separation Rule Weight (1-5): ");
+    protected final JSlider sep = new JSlider();
 
     private final JButton stop = new JButton("Stop");
     private final JButton play = new JButton("Play");
@@ -102,12 +102,12 @@ public class SimulationGUI extends JFrame {
         
         this.avgDir.setBounds(415, 50, 80, 30);
         this.getContentPane().add(avgDir);
-        //mainDist label and the textbox
-        this.mainDistLabel.setBounds( 200, 80, 400, 30);
-        this.getContentPane().add(this.mainDistLabel);
+        //sep label and the textbox
+        this.sepLabel.setBounds( 200, 80, 400, 30);
+        this.getContentPane().add(this.sepLabel);
         
-        this.mainDist.setBounds(415, 80, 80, 30);
-        this.getContentPane().add(mainDist);
+        this.sep.setBounds(415, 80, 80, 30);
+        this.getContentPane().add(sep);
 
         
 
