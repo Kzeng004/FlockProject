@@ -270,6 +270,7 @@ public class Boid extends JPanel {
         return target;
 
         }
+        
     public Vec separation(ArrayList<Boid> boids){
         double amountSeparated = 10;
         Vec steer = new Vec(0, 0);

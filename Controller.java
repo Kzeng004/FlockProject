@@ -48,6 +48,7 @@ public class Controller implements ActionListener {
             // Set the speed of the simulation
             Integer speed = Integer.valueOf(this.view.speed.getValue());
             model.setSpeed(speed);
+            
             //set shape of the circles
             Integer size = Integer.valueOf(this.view.size.getValue());
             model.setShape(size);
