@@ -17,7 +17,7 @@ Description:
 
  1) Pull the java files
  2) run command prompt
- 3) navigate to the location of the file by using "cd" command
+ 3) navigate to the location of the files by using "cd" command
  4) compile the .java files by typing "javac *.java"
  5) run the java simulation by entering "java Simulation"
 
