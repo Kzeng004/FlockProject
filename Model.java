@@ -52,8 +52,10 @@ public class Model extends Thread {
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
-        position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
-        direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
+        //position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
+        position = new Vec(0,0);
+        //direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
+        direction = new Vec(0, 0);
         for (Boid b: boids){
             b.showBoid();
         }
