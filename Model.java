@@ -105,6 +105,7 @@ public class Model extends Thread {
 
     /** Move boids to next location */
     public void advanceBoids() {
+        System.out.println("Show boids");
         for (Boid b: boids) {
             // Advance each boid
             b.step();
