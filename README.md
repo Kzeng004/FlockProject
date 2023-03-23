@@ -22,10 +22,9 @@ Description:
  4) compile the .java files by typing "javac *.java"
  5) run the java simulation by entering "java Simulation"
 
-
-
 ----------------------------------------------------------------------------------------------
-Files 
+Files:
+
 Boid.java - This java file contains methods that will affect the boids such as the separation method, the cohesion method, getLocation method, getDirection,  etc. 
 
 
