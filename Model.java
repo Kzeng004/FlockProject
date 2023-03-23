@@ -39,8 +39,11 @@ public class Model extends Thread {
     private int avgDirWeight = 1;
     /** Current "weight" of the model's separation rule */
     private int sepWeight = 1;
+
     private SimulationGUI simulation;
+    /** Average position of all boids */
     private Vec position;
+    /** Average direction of all boids */
     private Vec direction;
 
     /** Default constructor. */
@@ -168,7 +171,6 @@ public class Model extends Thread {
         for (int i=0; i<boids.size(); i++) {
             boids.get(i).setArea(boids.get(i).getHeight(),boids.get(i).getWidth());
         }
-
     }
 
     /**

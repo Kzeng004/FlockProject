@@ -28,6 +28,11 @@ public class Boid extends JPanel {
     private int height = 20;
     private int width = 20;
     private double area = 200;
+    public void setArea(int h, int w){
+        height = h;
+        width = w;
+        area = (h * w)/2.0;
+    }
     
     /** Color specified in RGB */
     private Color color = new Color(10, 10, 10);
@@ -36,10 +41,20 @@ public class Boid extends JPanel {
     private Point v1 = new Point(0,20);
     private Point v2 = new Point(20,20);
     private Point v3 = new Point(10,0);
+
+    /** List containing all the points making up the JPanel's location */
     private ArrayList<Point> points = new ArrayList<>();
-    private Point center;
     public ArrayList<Point> getPoints() {
         return points;
+    }
+
+    /** Center of the JPanel */
+    private Point center;
+    public void setCenter(){
+        center = new Point(v1.x + width/2, v1.y - height/2);
+    }
+    public Point getCenter(){
+        return center;
     }
 
     /** Delta of location at each timestep */
@@ -60,7 +75,7 @@ public class Boid extends JPanel {
 
     /** Reassigns member variables to the boid. */
     public void reset() {
-        System.out.println("resetting boid!");
+        //System.out.println("resetting boid!");
         v1 = randomXY(v1);
         v2 = new Point(v1.x + 20, v1.y);
         v3 = new Point(v1.x + 10, v1.y - 20);
@@ -71,7 +86,7 @@ public class Boid extends JPanel {
         randomDirection();
         //pointInDirection();
         showBoid();
-        System.out.println("Boid shown!!!");
+        //System.out.println("Boid shown!!!");
     }
 
     /** Makes boid visible */
@@ -83,33 +98,6 @@ public class Boid extends JPanel {
     public void hideBoid() {
         visible = false;
     }
-
-    /**
-     * Sets area to (h * w) / 2
-     * @param h Desired height
-     * @param w Desired width
-     */
-    public void setArea(int h, int w){
-        height = h;
-        width = w;
-        area = (h * w)/2.0;
-    }
-
-    /**
-     * Sets center point at center of boid
-     */
-    public void setCenter(){
-        center = new Point(v1.x + width/2, v1.y - height/2);
-    }
-
-    /**
-     * Give center of boid
-     * @return center of boid
-     */
-    public Point getCenter(){
-        return center;
-    }
-
 
     /** Default constructor */
     public Boid() {
@@ -238,8 +226,10 @@ public class Boid extends JPanel {
     public void paintComponent(Graphics g) {
         // This is called every time the boid location is reset in the Model
         // System.out.print(" P"+id);
+        System.out.println("paintComponent called!");
         super.paintComponent(g);
         if (visible) {
+            System.out.println("Visible!");
             g.setColor(color);
             Polygon p = new Polygon(new int[] {0,width/2,width},new int[] {0,0,height},3);
             g.drawPolygon(p);
@@ -250,7 +240,7 @@ public class Boid extends JPanel {
     /**
      * Returns the vec that will be used to steer the boid in the correct direction
      * @param target The vec that the boid should move to
-     * @return The vec
+     * @return Vec that will be used to steer boid in the correct direction
      */
     public Vec seek(Vec target){
         Vec steer = Vec.subtract(target, location);
@@ -258,9 +248,9 @@ public class Boid extends JPanel {
     }
 
     /**
-     * FILL IN!!!!!!!!!!!!
+     * Sets and gives a cohesion vector
      * @param boids List of boids in the Model
-     * @return
+     * @return Cohesion vector
      */
     public Vec cohesion(ArrayList<Boid> boids){
         int distance = 15;
@@ -281,9 +271,9 @@ public class Boid extends JPanel {
     }
 
     /**
-     * FILL IN!!!!!!!!!!!!!!!!!!!
+     * Sets and gives a separation vector
      * @param boids List of boids in the Model
-     * @return
+     * @return Separation vector
      */
     public Vec separation(ArrayList<Boid> boids){
         double amountSeparated = 10;

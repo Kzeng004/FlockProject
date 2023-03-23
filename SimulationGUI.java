@@ -16,35 +16,52 @@ import java.util.ArrayList;
  */
 public class SimulationGUI extends JFrame {
 
-    // Controller GUI Components
+    /** Label for population-setting slider */
     private final JLabel countLabel = new JLabel("# of Boids (2-200): ");
+    /** Slider to set boid population */
     protected final JSlider count = new JSlider();
 
+    /** Label for speed-setting slider */
     private final JLabel speedLabel = new JLabel("Speed (1-5): ");
+    /** Slider to set boid speed */
     protected final JSlider speed = new JSlider();
 
+    /** Label for size-setting slider */
     private final JLabel sizeLabel = new JLabel("Shape (10-40): ");
+    /** Slider to set boid size */
     protected final JSlider size = new JSlider();
 
+    /** Label for slider to set "weight" of average position rule */
     private final JLabel avgPosLabel = new JLabel("Average Position Rule Weight (1-5): ");
+    /** Slider to set "weight" of average position rule */
     protected final JSlider avgPos = new JSlider();
 
+    /** Label for slider to set "weight" of average direction rule */
     private final JLabel avgDirLabel = new JLabel("Average Direction Rule Weight (1-5): ");
+    /** Slider to set "weight" of average direction rule */
     protected final JSlider avgDir = new JSlider();
 
+    /** Label for slider to set "weight" of separation rule */
     private final JLabel sepLabel = new JLabel("Separation Rule Weight (1-5): ");
+    /** Slider to set "weight" of separation rule */
     protected final JSlider sep = new JSlider();
 
+    /** Button to pause the boids */
     private final JButton stop = new JButton("Stop");
+    /** Button to make the boids start moving */
     private final JButton play = new JButton("Play");
+    /** Button to set up the simulation */
     private final JButton restart = new JButton("Set Up");
 
+    /** List of all created boids */
     private ArrayList<Boid> boids;
 
     /**
      * Creates a Simulation GUI application.
      * Sets the components and their positions in the gui.
      * Sets the Controller as the buttons' action listener.
+     * @param control Controller used for the simulation
+     * @param model Boid model used for the simulation
      */
     public SimulationGUI(Controller control, Model model) {
 
