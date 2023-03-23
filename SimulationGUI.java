@@ -81,7 +81,7 @@ public class SimulationGUI extends JFrame {
         // The Boids
         boids = model.getBoids();
         for (Boid boid: boids) {
-            boid.setLocation(boid.getPoints().get(0).x,boid.getPoints().get(0).y);
+            boid.setLocation(boid.getXY().x,boid.getXY().y);
             getContentPane().add(boid);
         }
         

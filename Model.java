@@ -110,12 +110,12 @@ public class Model extends Thread {
             // Advance each boid
             b.step();
             // Set the location, which prompts the viewer to newly display the boid
-            b.setLocation(b.getPoints().get(0).x,b.getPoints().get(0).y);
+            b.setLocation(b.getXY().x,b.getXY().y);
             // If any boid hits the side of the bounding box, make it warp to the other side
             if (b.getX() < 50){
-                b.setLocation(650,b.getPoints().get(0).y);
+                b.setLocation(650,b.getXY().y);
             }else if (b.getX() > 650){
-                b.setLocation(50,b.getPoints().get(0).y);
+                b.setLocation(50,b.getXY().y);
             }
         }
     }
@@ -171,8 +171,8 @@ public class Model extends Thread {
             newShape = 40;
         }
         size = newShape;
-        for (int i=0; i<boids.size(); i++) {
-            boids.get(i).setArea(boids.get(i).getHeight(),boids.get(i).getWidth());
+        for (Boid b: boids) {
+            b.setRadius(b.getRadius() - newShape);
         }
     }
 
@@ -186,10 +186,10 @@ public class Model extends Thread {
         int posyCount = 0;
         int posy = 0;
         //Calculate the sum of all x and y positions
-        for (int i=0; i<boids.size(); i++) {
-            posx = (posx + boids.get(i).getCenter().x);
+        for (Boid b: boids) {
+            posx = (posx + b.getXY().x);
             posxCount += 1;
-            posy = posy + boids.get(i).getCenter().y; 
+            posy = posy + b.getXY().y; 
             posyCount += 1;
         }
         //Divide sum of positions by number of boids
