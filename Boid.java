@@ -19,10 +19,11 @@ public class Boid extends JPanel {
     /** Whether the boid is touching another boid */
     private boolean touching = false;
     /** x and y bounds to keep boids in the playAreas */
-    private final int xMINRANGE = 60;
-    private final int xMAXRANGE = 740;
-    private final int yMINRANGE = 160;
-    private final int yMAXRANGE = 740;
+    private final int xMINRANGE = 300;
+    private final int xMAXRANGE = 1300;
+    private final int yMINRANGE = 150;
+    private final int yMAXRANGE = 1150;
+    private int radius = 10;
 
     /** Measurements of each triangular boid */
     private int height = 20;
@@ -116,6 +117,7 @@ public class Boid extends JPanel {
         location = new Vec(v1.x,v1.y);
         //this.setLocation(v1.x, v1.y);
         //this.pointInDirection();
+        this.setSize(radius, radius);
 
         // Make the box/panel on which the boid is drawn transparent
         this.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
@@ -231,9 +233,10 @@ public class Boid extends JPanel {
         if (visible) {
             System.out.println("Visible!");
             g.setColor(color);
-            Polygon p = new Polygon(new int[] {0,width/2,width},new int[] {0,0,height},3);
-            g.drawPolygon(p);
-            g.fillPolygon(p);
+            //Polygon p = new Polygon(new int[] {0,width/2,width},new int[] {0,0,height},3);
+            //g.drawPolygon(p);
+            //g.fillPolygon(p);
+            g.fillOval(0, 0, radius, radius);
         }
     }
 
