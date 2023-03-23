@@ -106,6 +106,7 @@ public class Model extends Thread {
     /** Move boids to next location */
     public void advanceBoids() {
         System.out.println("Show boids");
+
         for (Boid b: boids) {
             // Advance each boid
             b.step();
@@ -118,6 +119,7 @@ public class Model extends Thread {
                 b.setLocation(50,b.getXY().y);
             }
         }
+
     }
 
     /** 
@@ -125,7 +127,6 @@ public class Model extends Thread {
      * @param boidCount new number of boids in the model
     */
     public void setCount(int boidCount) {
-        System.out.println("Making boids!");
         // Must be in bounds. Only 20 boids in the list.
         if (boidCount < 2) {
             boidCount = 2;
@@ -138,7 +139,7 @@ public class Model extends Thread {
             boids.get(i).reset();
         }
         // Hide the rest
-        for (int i=count; i<20; i++) {
+        for (int i=count; i<200; i++) {
             boids.get(i).hideBoid();
         }
     }
