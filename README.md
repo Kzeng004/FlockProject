@@ -27,6 +27,8 @@ Description:
 
 Algorithm for flocking :
 
+Using algorithm from: https://rosettacode.org/wiki/Boids/Java
+
 Create vector class to allow for the use of vectors to calculate position and direction. 
 
 Create separation method using vector subtraction to calculate the how far apart each of the boids are separated.
