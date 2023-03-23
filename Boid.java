@@ -22,7 +22,7 @@ public class Boid extends JPanel {
     private final int xMINRANGE = 300;
     private final int xMAXRANGE = 1300;
     private final int yMINRANGE = 150;
-    private final int yMAXRANGE = 1150;
+    private final int yMAXRANGE = 900;
     private int radius = 10;
 
     /** Measurements of each triangular boid */
@@ -78,8 +78,8 @@ public class Boid extends JPanel {
     public void reset() {
         //System.out.println("resetting boid!");
         v1 = randomXY(v1);
-        v2 = new Point(v1.x + 20, v1.y);
-        v3 = new Point(v1.x + 10, v1.y - 20);
+        v2 = new Point(v1.x, v1.y);
+        v3 = new Point(v1.x, v1.y);
         randomColor();
         setArea(v3.y - v1.y, v2.x - v1.x);
         location = new Vec(v1.x,v1.y);
@@ -105,8 +105,8 @@ public class Boid extends JPanel {
         id = getId();   // for debugging
 
         v1 = randomXY(v1);
-        v2 = new Point(v1.x + 20, v1.y);
-        v3 = new Point(v1.x + 10, v1.y + 20);
+        v2 = new Point(v1.x + 1, v1.y);
+        v3 = new Point(v1.x + 1, v1.y + 1);
 
         points.add(v1);
         points.add(v2);
@@ -115,7 +115,7 @@ public class Boid extends JPanel {
         this.setCenter();
         this.setArea(v3.y - v1.y,v2.x - v1.x);
         location = new Vec(v1.x,v1.y);
-        //this.setLocation(v1.x, v1.y);
+        this.setLocation(v1.x, v1.y);
         //this.pointInDirection();
         this.setSize(radius, radius);
 
