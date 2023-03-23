@@ -9,9 +9,9 @@
   */
 public class Vec {
     /** x-coordinate of the vec */
-    private int x;
+    public int x;
     /** y-coordinate of the vec */
-    private int y;
+    public int y;
 
     /** Creates a vec
      * @param x x-coordinate of the vec
@@ -20,19 +20,6 @@ public class Vec {
     public Vec(int x, int y){
         this.x = x;
         this.y = y;
-    }
-
-    public void setPoints(int newX, int newY){
-        x = newX;
-        y = newY;
-    }
-
-    public int getX(){
-        return x;
-    }
-
-    public int getY(){
-        return y;
     }
 
     /** Calculates the magnitude of this vec

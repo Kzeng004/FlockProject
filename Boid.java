@@ -27,7 +27,7 @@ public class Boid extends JPanel {
     /** Measurements of each triangular boid */
     private int height = 20;
     private int width = 20;
-    private double area = 200;
+    private double area = 200.0;
     public void setArea(int h, int w){
         height = h;
         width = w;
@@ -304,8 +304,8 @@ public class Boid extends JPanel {
      * @param newSep Current value on separation slider
      */
     public void setForce(Vec pos,int newPos,Vec dir,int newDir,Vec sep,int newSep){
-        int newX = direction.getX() + (pos.getX() / newPos) + (dir.getX() / newDir) + (sep.getX() / newSep);
-        int newY = direction.getY() + (pos.getY() / newPos) + (dir.getY() / newDir) + (sep.getY() / newSep);
+        int newX = direction.x + (pos.x / newPos) + (dir.x / newDir) + (sep.x / newSep);
+        int newY = direction.y + (pos.y / newPos) + (dir.y / newDir) + (sep.y / newSep);
         direction = new Point(newX,newY);
     }
 }
