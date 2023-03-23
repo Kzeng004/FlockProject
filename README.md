@@ -22,6 +22,31 @@ Description:
  4) compile the .java files by typing "javac *.java"
  5) run the java simulation by entering "java Simulation"
 
+ 
+----------------------------------------------------------------------------------------------
+
+Algorithm for flocking :
+
+Create vector class to allow for the use of vectors to calculate position and direction. 
+
+Create separation method using vector subtraction to calculate the how far apart each of the boids are separated.
+
+create seek method to allow for boids to seek the closest pack and move to it
+
+Create cohesion method using vector division to separate boids into groups and seek out a group
+
+create determine neighbor to allow for boids to determine which boids are neighbors
+
+Create calAveragePosition to determine the average position of boids to allow for movement
+
+create calAverageDirection to allow for average dirction of boids to allow for avoided collision
+
+call seek or separate if calcAveragePosition of boid is within a certain range of another boid
+
+call cohesion and determine neighbor to allow for boids to move according to their surrounding neighbors
+
+
+
 ----------------------------------------------------------------------------------------------
 Files:
 
