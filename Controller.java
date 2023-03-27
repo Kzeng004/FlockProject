@@ -51,7 +51,6 @@ public class Controller implements ActionListener {
 
             // Set shape of the boids
             Integer size = Integer.valueOf(this.view.size.getValue());
-            System.out.println("Size: " + size);
             model.setShape(size);
 
             // Set "weight" of the average position rule

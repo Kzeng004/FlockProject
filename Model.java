@@ -27,20 +27,92 @@ public class Model extends Thread {
     private int stepSize = 200;
     /** Current number of boids visible in the window. */
     private int count = 2;
+    public void setCount(int boidCount) {
+        // Must be in bounds. Only 200 boids in the list.
+        if (boidCount < 2) {
+            boidCount = 2;
+        } else if (boidCount > 200) {
+            boidCount = 200;
+        }
+        // Reset "count" boids, making them visible
+        count = boidCount;
+        for (int i=0; i<count; i++) {
+            boids.get(i).reset();
+        }
+        // Hide the rest
+        for (int i=count; i<200; i++) {
+            boids.get(i).hideBoid();
+        }
+    }
+
     /** Current speed of boids */
     private int speed = 1;
-    /** Pauses simulation so boids do not move */
-    private boolean paused = true;
+    public void setSpeed(int newSpeed) {
+        // speed is between 1 (slow) and 5 (fastest)
+        // low speed = high step size
+        if (newSpeed < 1) {
+            newSpeed = 1;
+        } else if (newSpeed > 5) {
+            newSpeed = 5;
+        }
+        stepSize = (6-newSpeed)*80; // 80 to 400ms
+        speed = newSpeed;
+    }
+
     /** Current size of boids */
     private int size = 0;
+    public void setShape(int newShape) {
+        if(newShape < 10){
+            newShape = 10;
+        } else if(newShape > 40){
+            newShape = 40;
+        }
+        size = newShape;
+        for (Boid b: boids) {
+            b.setRadius(newShape);
+        }
+    }
+
+    /** Pauses simulation so boids do not move */
+    private boolean paused = true;
+
     /** Current "weight" of the model's average position rule */
     private int avgPosWeight = 1;
+    public void setAvgPos(int rule1){
+        if (rule1 < 1) {
+            rule1 = 1;
+        } else if (rule1 > 5) {
+            rule1 = 5;
+        }
+        avgPosWeight = rule1 * 20;
+    }
+
     /** Current "weight" of the model's average direction rule */
     private int avgDirWeight = 1;
+    public void setAvgDir(int rule2){
+        if (rule2 < 1) {
+            rule2 = 1;
+        } else if (rule2 > 5) {
+            rule2 = 5;
+        }
+        avgDirWeight = rule2 * 20;
+    }
+
     /** Current "weight" of the model's separation rule */
     private int sepWeight = 1;
+    public void setSep(int rule3){
+        if (rule3 < 1) {
+            rule3 = 1;
+        } else if (rule3 > 5) {
+            rule3 = 5;
+        }
+        sepWeight = rule3 * 20;
+    }
 
     private SimulationGUI simulation;
+    public void setSim(SimulationGUI sim) {
+        simulation = sim;
+    }
     /** Average position of all boids */
     private Vec position;
     /** Average direction of all boids */
@@ -61,10 +133,6 @@ public class Model extends Thread {
         }
     }
 
-    public void setSim(SimulationGUI sim) {
-        simulation = sim;
-    }
-
     /** Run the model */
     @Override
     public void run() {
@@ -75,7 +143,9 @@ public class Model extends Thread {
             if (!paused) {
                 advanceBoids();
                 Vec avgP = calcAvgPosition();
+                System.out.println("Position: " + avgP.toString());
                 Vec avgD = calcAvgDirection();
+                System.out.println("Direction: " + avgD.toString());
                 for (Boid b: boids){
                     Vec sep = b.separation(boids);
                     b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);
@@ -106,7 +176,6 @@ public class Model extends Thread {
 
     /** Move boids to next location */
     public void advanceBoids() {
-        //System.out.println("Show boids");
         for (Boid b: boids) {
             // Advance each boid
             b.step();
@@ -118,62 +187,6 @@ public class Model extends Thread {
             }else if (b.getX() > 650){
                 b.setLocation(50,b.getXY().y);
             }
-        }
-    }
-
-    /** 
-     * Reset the number of boids
-     * @param boidCount new number of boids in the model
-    */
-    public void setCount(int boidCount) {
-        System.out.println("Making boids!");
-        // Must be in bounds. Only 200 boids in the list.
-        if (boidCount < 2) {
-            boidCount = 2;
-        } else if (boidCount > 200) {
-            boidCount = 200;
-        }
-        // Reset "count" boids, making them visible
-        count = boidCount;
-        for (int i=0; i<count; i++) {
-            boids.get(i).reset();
-        }
-        // Hide the rest
-        for (int i=count; i<200; i++) {
-            boids.get(i).hideBoid();
-        }
-    }
-
-    /**
-     * Set speed of simulation from 1 (slow) to 5 (fast)
-     * @param newSpeed speed to set the model to
-     */
-    public void setSpeed(int newSpeed) {
-        // speed is between 1 (slow) and 5 (fastest)
-        // low speed = high step size
-        if (newSpeed < 1) {
-            newSpeed = 1;
-        } else if (newSpeed > 5) {
-            newSpeed = 5;
-        }
-        stepSize = (6-newSpeed)*80; // 80 to 400ms
-        speed = newSpeed;
-    }
-
-    /**
-     * Set the shape of the boids
-     * @param newShape the boids' new shape
-     */
-
-    public void setShape(int newShape) {
-        if(newShape < 10){
-            newShape = 10;
-        } else if(newShape > 40){
-            newShape = 40;
-        }
-        size = newShape;
-        for (Boid b: boids) {
-            b.setRadius(newShape);
         }
     }
 
@@ -225,44 +238,6 @@ public class Model extends Thread {
         Vec dirVec = new Vec(dirx,diry);
         direction.add(dirVec);
         return direction;
-    }
-    /**
-     * Sets cohesion of boids
-     * @param rule1 Setting on average position slider
-     */
-    public void setAvgPos(int rule1){
-        if (rule1 < 1) {
-            rule1 = 1;
-        } else if (rule1 > 5) {
-            rule1 = 5;
-        }
-        avgPosWeight = rule1 * 20;
-    }
-
-    /**
-     * Sets direction of boids
-     * @param rule2 Setting on average direction slider
-     */
-    public void setAvgDir(int rule2){
-        if (rule2 < 1) {
-            rule2 = 1;
-        } else if (rule2 > 5) {
-            rule2 = 5;
-        }
-        avgDirWeight = rule2 * 20;
-    }
-
-    /**
-     * Sets separation of boids
-     * @param rule3 Setting on separation slider
-     */
-    public void setSep(int rule3){
-        if (rule3 < 1) {
-            rule3 = 1;
-        } else if (rule3 > 5) {
-            rule3 = 5;
-        }
-        sepWeight = rule3 * 20;
     }
 }
 
