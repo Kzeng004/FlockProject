@@ -213,6 +213,7 @@ public class Model extends Thread {
         posVec.normalize();
         //Put results into position Vec
         position.add(posVec);
+        position.limit(1);
         return position;
     }
 
@@ -239,6 +240,7 @@ public class Model extends Thread {
         Vec dirVec = new Vec(dirx,diry);
         dirVec.normalize();
         direction.add(dirVec);
+        direction.limit(1);
         return direction;
     }
 }

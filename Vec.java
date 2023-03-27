@@ -32,6 +32,19 @@ public class Vec {
         }
     }
 
+    public void limit(int l){
+        if (x > l){
+            x = l;
+        }else if (x < (-1) * l){
+            x = (-1) * l;
+        }
+        if (y > l){
+            y = l;
+        }else if (y < (-1) * l){
+            y = (-1) * l;
+        }
+    }
+
     /** Calculates the magnitude of this vec
      * @return This vec's magnitude
      */

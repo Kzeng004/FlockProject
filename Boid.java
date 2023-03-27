@@ -201,6 +201,7 @@ public class Boid extends JPanel {
             if((dist > 0) && (dist < distance)){
                 b.location.normalize();
                 target.add(b.location);
+                target.limit(1);
                 count++;
             }
         }
@@ -230,6 +231,7 @@ public class Boid extends JPanel {
                 difference.divide((int)d);
                 difference.normalize();
                 steer.add(difference);
+                steer.limit(1);
                 count++;
             }
         }
