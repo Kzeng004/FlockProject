@@ -209,7 +209,6 @@ public class Boid extends JPanel {
             target.normalize();
             return seek(target);
         }
-        target.normalize();
         return target; 
     }
 
@@ -237,7 +236,6 @@ public class Boid extends JPanel {
         if(count > 0){
             steer.divide(count);
         }
-        steer.normalize();
         return steer;
     }
 
