@@ -61,15 +61,15 @@ public class Model extends Thread {
 
     /** Current size of boids */
     private int size = 0;
-    public void setShape(int newShape) {
-        if(newShape < 10){
-            newShape = 10;
-        } else if(newShape > 40){
-            newShape = 40;
+    public void setSize(int newSize) {
+        if(newSize < 10){
+            newSize = 10;
+        } else if(newSize > 40){
+            newSize = 40;
         }
-        size = newShape;
+        size = newSize;
         for (Boid b: boids) {
-            b.setRadius(newShape);
+            b.setRadius(newSize);
         }
     }
 
@@ -143,9 +143,9 @@ public class Model extends Thread {
             if (!paused) {
                 advanceBoids();
                 Vec avgP = calcAvgPosition();
-                System.out.println("Position: " + avgP.toString());
+                //System.out.println("Position: " + avgP.toString());
                 Vec avgD = calcAvgDirection();
-                System.out.println("Direction: " + avgD.toString());
+                //System.out.println("Direction: " + avgD.toString());
                 for (Boid b: boids){
                     Vec sep = b.separation(boids);
                     b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);

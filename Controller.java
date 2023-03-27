@@ -49,9 +49,9 @@ public class Controller implements ActionListener {
             Integer speed = Integer.valueOf(this.view.speed.getValue());
             model.setSpeed(speed);
 
-            // Set shape of the boids
+            // Set size of the boids
             Integer size = Integer.valueOf(this.view.size.getValue());
-            model.setShape(size);
+            model.setSize(size);
 
             // Set "weight" of the average position rule
             Integer posiWeight = Integer.valueOf(this.view.avgPos.getValue());

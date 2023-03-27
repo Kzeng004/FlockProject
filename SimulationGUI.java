@@ -21,7 +21,7 @@ public class SimulationGUI extends JFrame {
     protected final JSlider speed = new JSlider();
 
     /** Label for size-setting slider */
-    private final JLabel sizeLabel = new JLabel("Shape (10-40): ");
+    private final JLabel sizeLabel = new JLabel("Size (10-40): ");
     /** Slider to set boid size */
     protected final JSlider size = new JSlider();
 
@@ -95,7 +95,7 @@ public class SimulationGUI extends JFrame {
         this.speed.setBounds(115, 50, 80, 30);
         this.getContentPane().add(this.speed);
 
-        // Shape label and the textbox
+        // Size label and the textbox
         this.sizeLabel.setBounds( 20, 80, 100, 30);
         this.getContentPane().add(this.sizeLabel);
         
