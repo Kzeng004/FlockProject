@@ -57,7 +57,7 @@ public class Model extends Thread {
         //direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
         direction = new Vec(0, 0);
         for (Boid b: boids){
-            b.showBoid();
+            b.hideBoid();
         }
     }
 
@@ -81,6 +81,7 @@ public class Model extends Thread {
                     b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);
                 }
                 simulation.getContentPane().repaint();
+                boids.get(0).repaint();
             }
             try {
                 Thread.sleep(stepSize);
@@ -126,7 +127,7 @@ public class Model extends Thread {
     */
     public void setCount(int boidCount) {
         System.out.println("Making boids!");
-        // Must be in bounds. Only 20 boids in the list.
+        // Must be in bounds. Only 200 boids in the list.
         if (boidCount < 2) {
             boidCount = 2;
         } else if (boidCount > 200) {
@@ -138,7 +139,7 @@ public class Model extends Thread {
             boids.get(i).reset();
         }
         // Hide the rest
-        for (int i=count; i<20; i++) {
+        for (int i=count; i<200; i++) {
             boids.get(i).hideBoid();
         }
     }
@@ -172,7 +173,7 @@ public class Model extends Thread {
         }
         size = newShape;
         for (Boid b: boids) {
-            b.setRadius(b.getRadius() - newShape);
+            b.setRadius(newShape);
         }
     }
 

@@ -24,20 +24,12 @@ public class Boid extends JPanel {
     private final int yMINRANGE = 150;
     private final int yMAXRANGE = 1150;
 
-    /* Measurements of each triangular boid
-    private int height = 20;
-    private int width = 20;
-    private double area = 200.0;
-    public void setArea(int h, int w){
-        height = h;
-        width = w;
-        area = (h * w)/2.0;
-    }*/
-
     /** Radius of each circular boid */
-    private int radius = 10;
+    private int radius = 20;
     public void setRadius(int r){
         radius = r;
+        this.setSize(2*radius,2*radius);
+
     }
     public int getRadius(){
         return radius;
@@ -47,29 +39,10 @@ public class Boid extends JPanel {
     private Color color = new Color(10, 10, 10);
 
     /** Location of the JPanel in which the boid is drawn */
-    private Point xy = new Point(0,20);
+    private Point xy = new Point(0,0);
     public Point getXY(){
         return xy;
     }
-    
-    /*private Point v1 = new Point(0,20);
-    private Point v2 = new Point(20,20);
-    private Point v3 = new Point(10,0);
-
-    /** List containing all the points making up the JPanel's location 
-    private ArrayList<Point> points = new ArrayList<>();
-    public ArrayList<Point> getPoints() {
-        return points;
-    }
-
-    /* Center of the JPanel 
-    private Point center;
-    public void setCenter(){
-        center = new Point(v1.x + width/2, v1.y - height/2);
-    }
-    public Point getCenter(){
-        return center;
-    }*/
 
     /** Delta of location at each timestep */
     private Point direction = new Point(+1, +1);
@@ -90,11 +63,11 @@ public class Boid extends JPanel {
     /** Reassigns member variables to the boid. */
     public void reset() {
         //System.out.println("resetting boid!");
-        xy = randomXY(xy);
+        randomXY();
         randomColor();
         setRadius(radius);
-        location = new Vec(xy.x,xy.y);
-        //setLocation(v1.x, v1.y);
+        //location = new Vec(xy.x,xy.y);
+        setLocation(xy.x, xy.y);
         randomDirection();
         //pointInDirection();
         showBoid();
@@ -115,20 +88,11 @@ public class Boid extends JPanel {
     public Boid() {
         id = getId();   // for debugging
 
-        xy = randomXY(xy);
-        /*v2 = new Point(v1.x + 20, v1.y);
-        v3 = new Point(v1.x + 10, v1.y + 20);
-
-        points.add(v1);
-        points.add(v2);
-        points.add(v3);
-
-        this.setCenter();*/
+        randomXY();
+        
         this.setRadius(radius);
         location = new Vec(xy.x,xy.y);
-        //this.setLocation(v1.x, v1.y);
-        //this.pointInDirection();
-        this.setSize(radius, radius);
+        this.setSize(2*radius,2*radius);
 
         // Make the box/panel on which the boid is drawn transparent
         this.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
@@ -138,27 +102,11 @@ public class Boid extends JPanel {
         randomColor();
     }
 
-    /** Make boid point in the direction that the boid is moving */
-    /*public void pointInDirection(){
-        if (direction.x > 0){
-            v1.x = center.x + direction.x;
-        }else{
-            v1.x = center.x - direction.x;
-        }
-        if (direction.y > 0){
-            v1.y = center.y + direction.y;
-        }else{
-            v1.y = center.y - direction.y;
-        }
-        //ADD v2 & v3!!!
-    }*/
-
     /** Randomly assign its location based on the fixed ranges. */
-    public Point randomXY(Point v) {
+    public void randomXY() {
         // place at random location
-        v.x = random.nextInt(xMAXRANGE - xMINRANGE) + xMINRANGE;
-        v.y = random.nextInt(yMAXRANGE - yMINRANGE) + yMINRANGE;
-        return v;
+        xy.x = random.nextInt(xMAXRANGE - xMINRANGE) + xMINRANGE;
+        xy.y = random.nextInt(yMAXRANGE - yMINRANGE) + yMINRANGE;
     }
 
     /** Randomly point it in a direction with random "speed" */
@@ -183,7 +131,7 @@ public class Boid extends JPanel {
         if (xNew < xMINRANGE) {
             xy.x = xMAXRANGE - 21;
         } else if (xNew > xMAXRANGE) {
-            xy.x = xMINRANGE + 1;
+            xy.x = xMINRANGE + 21;
         } else {
             xy.x += direction.x;
         }
@@ -205,8 +153,8 @@ public class Boid extends JPanel {
      * @param other The other boid
      */
     public void determineNeighbor(Boid other){
-        double d = Math.sqrt(Math.pow((xy.x - other.getXY().x), 2) + Math.pow((xy.y - other.getXY().y), 2));
-        if (d <= (double)(radius + other.radius)){
+        double d = Math.sqrt((this.xy.x - other.xy.x) * (this.xy.x - other.xy.x) + (this.xy.y - other.xy.y) * (this.xy.y - other.xy.y));
+        if(d <= this.radius + other.radius){
             touching = true;
             
         }else{
@@ -218,15 +166,11 @@ public class Boid extends JPanel {
     public void paintComponent(Graphics g) {
         // This is called every time the boid location is reset in the Model
         // System.out.print(" P"+id);
-        System.out.println("paintComponent called!");
         super.paintComponent(g);
         if (visible) {
-            System.out.println("Visible!");
+            //System.out.println("paintComponent called! - Visible!");
             g.setColor(color);
-            //Polygon p = new Polygon(new int[] {0,width/2,width},new int[] {0,0,height},3);
-            //g.drawPolygon(p);
-            //g.fillPolygon(p);
-            g.fillOval(0, 0, radius, radius);
+            g.fillOval(0,0,2*radius,2*radius);
         }
     }
 
