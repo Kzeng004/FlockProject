@@ -162,7 +162,7 @@ public class Model extends Thread {
 
     /**
      * Set the shape of the boids
-     * @param newShape the amount that will be cut from the boid
+     * @param newShape the boids' new shape
      */
 
     public void setShape(int newShape) {
