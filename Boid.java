@@ -19,10 +19,10 @@ public class Boid extends JPanel {
     /** Whether the boid is touching another boid */
     private boolean touching = false;
     /** x and y bounds to keep boids in the playAreas */
-    private final int xMINRANGE = 300;
-    private final int xMAXRANGE = 1300;
+    private final int xMINRANGE = 50;
+    private final int xMAXRANGE = 850;
     private final int yMINRANGE = 150;
-    private final int yMAXRANGE = 1150;
+    private final int yMAXRANGE = 750;
 
     /** Radius of each circular boid */
     private int radius = 20;

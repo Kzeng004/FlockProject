@@ -1,10 +1,4 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-
+import javax.swing.*;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -74,8 +68,8 @@ public class SimulationGUI extends JFrame {
         this.getContentPane().setLayout(null);
 
         // Play Area
-        BoundingBox playArea = new BoundingBox(700,600);
-        playArea.setLocation(300,150);
+        BoundingBox playArea = new BoundingBox(800,600);
+        playArea.setLocation(50,150);
         getContentPane().add(playArea);
 
         // The Boids
@@ -137,12 +131,12 @@ public class SimulationGUI extends JFrame {
         this.getContentPane().add(this.restart);
         
         // Play button
-        this.play.setBounds(40, 200, 120, 30);
+        this.play.setBounds(500, 60, 120, 30);
         this.play.addActionListener(control);
         this.getContentPane().add(this.play);
         
         // Stop button
-        this.stop.setBounds(150, 200, 120, 30);
+        this.stop.setBounds(500, 100, 120, 30);
         this.stop.addActionListener(control);
         this.getContentPane().add(this.stop);
     }
