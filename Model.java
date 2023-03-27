@@ -210,6 +210,7 @@ public class Model extends Thread {
         posx = posx/posxCount;
         posy = posy/posyCount;
         Vec posVec = new Vec(posx,posy);
+        posVec.normalize();
         //Put results into position Vec
         position.add(posVec);
         return position;
@@ -236,6 +237,7 @@ public class Model extends Thread {
         diry = diry/diryCount;
         //Put results into direction Vec
         Vec dirVec = new Vec(dirx,diry);
+        dirVec.normalize();
         direction.add(dirVec);
         return direction;
     }

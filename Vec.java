@@ -22,6 +22,16 @@ public class Vec {
         this.y = y;
     }
 
+    /** Normalizes the vec */
+    public void normalize(){
+        if (x != 0){
+            x /= Math.abs(x);
+        }
+        if (y != 0){
+            y /= Math.abs(y);
+        }
+    }
+
     /** Calculates the magnitude of this vec
      * @return This vec's magnitude
      */

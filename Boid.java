@@ -180,7 +180,10 @@ public class Boid extends JPanel {
      * @return Vec that will be used to steer boid in the correct direction
      */
     public Vec seek(Vec target){
+        target.normalize();
+        location.normalize();
         Vec steer = Vec.subtract(target, location);
+        steer.normalize();
         return steer;
     }
 
@@ -196,14 +199,17 @@ public class Boid extends JPanel {
         for(Boid b : boids){
             int dist = (int) Vec.distance(location, b.location);
             if((dist > 0) && (dist < distance)){
+                b.location.normalize();
                 target.add(b.location);
                 count++;
             }
         }
         if(count > 0){
             target.divide(count);
+            target.normalize();
             return seek(target);
         }
+        target.normalize();
         return target; 
     }
 
@@ -216,11 +222,14 @@ public class Boid extends JPanel {
         double amountSeparated = 10;
         Vec steer = new Vec(0, 0);
         int count = 0;
+        location.normalize();
         for(Boid b: boids){
+            b.location.normalize();
             double d = Vec.distance(location, b.location);
             if((d > 0) && (d < amountSeparated)){
                 Vec difference = Vec.subtract(location, b.location);
                 difference.divide((int)d);
+                difference.normalize();
                 steer.add(difference);
                 count++;
             }
@@ -228,6 +237,7 @@ public class Boid extends JPanel {
         if(count > 0){
             steer.divide(count);
         }
+        steer.normalize();
         return steer;
     }
 
