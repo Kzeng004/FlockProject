@@ -67,7 +67,7 @@ public class Boid extends JPanel {
         randomColor();
         setRadius(radius);
         //location = new Vec(xy.x,xy.y);
-        setLocation(xy.x, xy.y);
+        setLocation((int) xy.x, (int) xy.y);
         randomDirection();
         //pointInDirection();
         showBoid();
@@ -125,25 +125,15 @@ public class Boid extends JPanel {
 
     /** Move the boid the "delta" for 1 timestep */
     public void step() {
-        int xNew = (xy.x + direction.x);
-        int yNew = (xy.y + direction.y);
-
-        if (xNew < xMINRANGE) {
-            xy.x = xMAXRANGE - 21;
-        } else if (xNew > xMAXRANGE) {
-            xy.x = xMINRANGE + 21;
-        } else {
-            xy.x += direction.x;
+        // If any boid hits the side of the bounding box, make it bounce off the side
+        if (xy.x > xMAXRANGE || xy.x < xMINRANGE){
+            direction.x *= -1;
         }
-        if (yNew < yMINRANGE) {
-            xy.y -= direction.y;
+        if (xy.y > yMAXRANGE || xy.y < yMINRANGE){
             direction.y *= -1;
-        } else if (yNew > yMAXRANGE) {
-            xy.y -= direction.y;
-            direction.y *= -1;
-        } else {
-            xy.y += direction.y;
         }
+        xy.x += direction.x;
+        xy.y += direction.y;
 
         //pointInDirection();
     }
@@ -251,8 +241,9 @@ public class Boid extends JPanel {
      * @param newSep Current value on separation slider
      */
     public void setForce(Vec pos,int newPos,Vec dir,int newDir,Vec sep,int newSep){
-        int newX = direction.x + (pos.x / newPos) + (dir.x / newDir) + (sep.x / newSep);
-        int newY = direction.y + (pos.y / newPos) + (dir.y / newDir) + (sep.y / newSep);
+        double newX = direction.x + (pos.x / newPos) + (dir.x / newDir) + (sep.x / newSep);
+        double newY = direction.y + (pos.y / newPos) + (dir.y / newDir) + (sep.y / newSep);
         direction = new Point(newX,newY);
+        direction.limit(1);
     }
 }

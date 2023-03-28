@@ -9,15 +9,15 @@
   */
 public class Vec {
     /** x-coordinate of the vec */
-    public int x;
+    public double x;
     /** y-coordinate of the vec */
-    public int y;
+    public double y;
 
     /** Creates a vec
      * @param x x-coordinate of the vec
      * @param y y-coordinate of the vec
      */
-    public Vec(int x, int y){
+    public Vec(double x, double y){
         this.x = x;
         this.y = y;
     }
@@ -32,7 +32,11 @@ public class Vec {
         }
     }
 
-    public void limit(int l){
+    /** 
+     * Limits the vec's magnitude to some value
+     * @param l value to which to limit the vec's magnitude
+     */
+    public void limit(double l){
         if (x > l){
             x = l;
         }else if (x < (-1) * l){
@@ -83,7 +87,7 @@ public class Vec {
     /** Multiplies two vecs
      * @param v Vec to be multiplied by this vec
      */
-    public void multiply(int val){
+    public void multiply(double val){
         x *= val;
         y *= val;
     }
@@ -91,7 +95,7 @@ public class Vec {
     /** Divides this vec's coordinates by another vec's
      * @param v Vec by whose coordinates this vec's coordinates will be divided
      */
-    public void divide(int val){
+    public void divide(double val){
         x /= val;
         y /= val;
     }

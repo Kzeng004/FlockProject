@@ -180,13 +180,7 @@ public class Model extends Thread {
             // Advance each boid
             b.step();
             // Set the location, which prompts the viewer to newly display the boid
-            b.setLocation(b.getXY().x,b.getXY().y);
-            // If any boid hits the side of the bounding box, make it warp to the other side
-            if (b.getX() < 50){
-                b.setLocation(650,b.getXY().y);
-            }else if (b.getX() > 650){
-                b.setLocation(50,b.getXY().y);
-            }
+            b.setLocation((int) b.getXY().x,(int) b.getXY().y);
         }
     }
 
@@ -196,9 +190,9 @@ public class Model extends Thread {
      */
     public Vec calcAvgPosition(){
         int posxCount = 0;
-        int posx = 0;
+        double posx = 0;
         int posyCount = 0;
-        int posy = 0;
+        double posy = 0;
         //Calculate the sum of all x and y positions
         for (Boid b: boids) {
             posx = (posx + b.getXY().x);
@@ -223,9 +217,9 @@ public class Model extends Thread {
      */
     public Vec calcAvgDirection(){
         int dirxCount = 0;
-        int dirx = 0;
+        double dirx = 0;
         int diryCount = 0;
-        int diry = 0;
+        double diry = 0;
         //Calculate the sum of all x and y directions
         for(int i =0; i< boids.size(); i++){
             dirx = (dirx + boids.get(i).getDirection().x);

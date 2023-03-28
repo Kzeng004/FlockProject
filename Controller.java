@@ -1,9 +1,9 @@
 /*
  * Controller.java
  */
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JTextField;
+import java.awt.event.*;
+import javax.swing.event.*;
+
 import java.text.DecimalFormat;
 /**
  * The controller class for the temp converter application.
