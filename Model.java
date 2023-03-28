@@ -154,7 +154,8 @@ public class Model extends Thread {
                 boids.get(0).repaint();
             }
             try {
-                Thread.sleep(stepSize);
+                //Thread.sleep(stepSize);
+                Thread.sleep(10);
             } catch (Exception e) {
 
             }
