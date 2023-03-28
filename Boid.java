@@ -54,7 +54,7 @@ public class Boid extends JPanel {
     private Random random = new Random();
 
     /** Location of boid */
-    private Vec location;
+    private Point location;
 
     /** Drawn in window when visible */
     private boolean visible = false;
@@ -66,7 +66,7 @@ public class Boid extends JPanel {
         randomXY();
         randomColor();
         setRadius(radius);
-        //location = new Vec(xy.x,xy.y);
+        //location = new Point(xy.x,xy.y);
         setLocation((int) xy.x, (int) xy.y);
         randomDirection();
         //pointInDirection();
@@ -91,7 +91,7 @@ public class Boid extends JPanel {
         randomXY();
         
         this.setRadius(radius);
-        location = new Vec(xy.x,xy.y);
+        location = new Point(xy.x,xy.y);
         this.setSize(2*radius,2*radius);
 
         // Make the box/panel on which the boid is drawn transparent
@@ -165,14 +165,14 @@ public class Boid extends JPanel {
     }
 
     /**
-     * Returns the vec that will be used to steer the boid in the correct direction
-     * @param target The vec that the boid should move to
-     * @return Vec that will be used to steer boid in the correct direction
+     * Returns the vector that will be used to steer the boid in the correct direction
+     * @param target The point that the boid should move to
+     * @return Vector that will be used to steer boid in the correct direction
      */
-    public Vec seek(Vec target){
+    public Point seek(Point target){
         target.normalize();
         location.normalize();
-        Vec steer = Vec.subtract(target, location);
+        Point steer = Point.subtract(target, location);
         steer.normalize();
         return steer;
     }
@@ -182,12 +182,12 @@ public class Boid extends JPanel {
      * @param boids List of boids in the Model
      * @return Cohesion vector
      */
-    public Vec cohesion(ArrayList<Boid> boids){
+    public Point cohesion(ArrayList<Boid> boids){
         int distance = 15;
-        Vec target = new Vec(0,0);
+        Point target = new Point(0,0);
         int count = 0;
         for(Boid b : boids){
-            int dist = (int) Vec.distance(location, b.location);
+            int dist = (int) Point.distance(location, b.location);
             if((dist > 0) && (dist < distance)){
                 b.location.normalize();
                 target.add(b.location);
@@ -208,16 +208,16 @@ public class Boid extends JPanel {
      * @param boids List of boids in the Model
      * @return Separation vector
      */
-    public Vec separation(ArrayList<Boid> boids){
+    public Point separation(ArrayList<Boid> boids){
         double amountSeparated = 10;
-        Vec steer = new Vec(0, 0);
+        Point steer = new Point(0, 0);
         int count = 0;
         location.normalize();
         for(Boid b: boids){
             b.location.normalize();
-            double d = Vec.distance(location, b.location);
+            double d = Point.distance(location, b.location);
             if((d > 0) && (d < amountSeparated)){
-                Vec difference = Vec.subtract(location, b.location);
+                Point difference = Point.subtract(location, b.location);
                 difference.divide((int)d);
                 difference.normalize();
                 steer.add(difference);
@@ -232,15 +232,15 @@ public class Boid extends JPanel {
     }
 
     /**
-     * Combines the vecs into one
-     * @param pos Average position vec
+     * Combines the vectors into one
+     * @param pos Average position vector
      * @param newPos Current value on average position slider
-     * @param dir Average direction vec
+     * @param dir Average direction vectpr
      * @param newDir Current value on average direction slider
-     * @param sep Separation vec
+     * @param sep Separation vector
      * @param newSep Current value on separation slider
      */
-    public void setForce(Vec pos,int newPos,Vec dir,int newDir,Vec sep,int newSep){
+    public void setForce(Point pos,int newPos,Point dir,int newDir,Point sep,int newSep){
         double newX = direction.x + (pos.x / newPos) + (dir.x / newDir) + (sep.x / newSep);
         double newY = direction.y + (pos.y / newPos) + (dir.y / newDir) + (sep.y / newSep);
         direction = new Point(newX,newY);

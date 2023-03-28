@@ -114,9 +114,9 @@ public class Model extends Thread {
         simulation = sim;
     }
     /** Average position of all boids */
-    private Vec position;
+    private Point position;
     /** Average direction of all boids */
-    private Vec direction;
+    private Point direction;
 
     /** Default constructor. */
     public Model() {
@@ -124,10 +124,10 @@ public class Model extends Thread {
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
-        //position = new Vec(rand.nextInt(50,650),rand.nextInt(150,850));
-        position = new Vec(0,0);
-        //direction = new Vec(rand.nextInt(-1,1),rand.nextInt(-1,1));
-        direction = new Vec(0, 0);
+        //position = new Point(rand.nextInt(50,650),rand.nextInt(150,850));
+        position = new Point(0,0);
+        //direction = new Point(rand.nextInt(-1,1),rand.nextInt(-1,1));
+        direction = new Point(0, 0);
         for (Boid b: boids){
             b.hideBoid();
         }
@@ -142,12 +142,12 @@ public class Model extends Thread {
             //If boids are overlapping, change the color of the boids and then change the coordinate of both boids
             if (!paused) {
                 advanceBoids();
-                Vec avgP = calcAvgPosition();
+                Point avgP = calcAvgPosition();
                 //System.out.println("Position: " + avgP.toString());
-                Vec avgD = calcAvgDirection();
+                Point avgD = calcAvgDirection();
                 //System.out.println("Direction: " + avgD.toString());
                 for (Boid b: boids){
-                    Vec sep = b.separation(boids);
+                    Point sep = b.separation(boids);
                     b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);
                 }
                 simulation.getContentPane().repaint();
@@ -187,9 +187,9 @@ public class Model extends Thread {
 
     /**
      * Calculates the average position of all boids
-     * @return Position Vec with average position of all boids
+     * @return Position vector with average position of all boids
      */
-    public Vec calcAvgPosition(){
+    public Point calcAvgPosition(){
         int posxCount = 0;
         double posx = 0;
         int posyCount = 0;
@@ -204,9 +204,9 @@ public class Model extends Thread {
         //Divide sum of positions by number of boids
         posx = posx/posxCount;
         posy = posy/posyCount;
-        Vec posVec = new Vec(posx,posy);
+        Point posVec = new Point(posx,posy);
         posVec.normalize();
-        //Put results into position Vec
+        //Put results into position vector
         position.add(posVec);
         position.limit(1);
         return position;
@@ -214,9 +214,9 @@ public class Model extends Thread {
 
     /**
      * Calculates the average direction of all boids
-     * @return Direction Vec with average direction of all boids
+     * @return Direction vector with average direction of all boids
      */
-    public Vec calcAvgDirection(){
+    public Point calcAvgDirection(){
         int dirxCount = 0;
         double dirx = 0;
         int diryCount = 0;
@@ -231,8 +231,8 @@ public class Model extends Thread {
         //Divide sum of directions by number of boids
         dirx = dirx/dirxCount;
         diry = diry/diryCount;
-        //Put results into direction Vec
-        Vec dirVec = new Vec(dirx,diry);
+        //Put results into direction vector
+        Point dirVec = new Point(dirx,diry);
         dirVec.normalize();
         direction.add(dirVec);
         direction.limit(1);
