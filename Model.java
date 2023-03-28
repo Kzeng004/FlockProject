@@ -180,6 +180,12 @@ public class Model extends Thread {
         for (Boid b: boids) {
             // Advance each boid
             b.step();
+            b.cohesion(boids);
+            b.separation(boids);
+            b.determineNeighbor(b);
+            if(b.getLocation() == b.getLocation()){
+                b.separation(boids);
+            }
             // Set the location, which prompts the viewer to newly display the boid
             b.setLocation((int) b.getXY().x,(int) b.getXY().y);
         }
