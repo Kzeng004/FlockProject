@@ -62,16 +62,12 @@ public class Boid extends JPanel {
 
     /** Reassigns member variables to the boid. */
     public void reset() {
-        //System.out.println("resetting boid!");
         randomXY();
         randomColor();
         setRadius(radius);
-        //location = new Point(xy.x,xy.y);
         setLocation((int) xy.x, (int) xy.y);
         randomDirection();
-        //pointInDirection();
         showBoid();
-        //System.out.println("Boid shown!!!");
     }
 
     /** Makes boid visible */
@@ -114,7 +110,6 @@ public class Boid extends JPanel {
         // set in a random direction
         direction.x = random.nextInt(6) - 3;
         direction.y = random.nextInt(6) - 3;
-        //pointInDirection();
     }
 
     /** Randomly assign the RGB components */
@@ -132,10 +127,9 @@ public class Boid extends JPanel {
         if (xy.y > yMAXRANGE || xy.y < yMINRANGE){
             direction.y *= -1;
         }
+        // Make boid move in current set direction
         xy.x += direction.x;
         xy.y += direction.y;
-
-        //pointInDirection();
     }
 
     /**
@@ -143,6 +137,7 @@ public class Boid extends JPanel {
      * @param other The other boid
      */
     public void determineNeighbor(Boid other){
+        // Calculate distance between centers of two boids
         double d = Math.sqrt((this.xy.x - other.xy.x) * (this.xy.x - other.xy.x) + (this.xy.y - other.xy.y) * (this.xy.y - other.xy.y));
         if(d <= this.radius + other.radius){
             touching = true;

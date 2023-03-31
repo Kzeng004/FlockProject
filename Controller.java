@@ -34,7 +34,6 @@ public class Controller implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent ae) {
-        //System.out.println("Action called: " + ae);
         if( ae.getActionCommand().equals("Set Up")) { // tied to the label of the button
 
             // Set the model on pause
@@ -42,7 +41,6 @@ public class Controller implements ActionListener {
             
             // Create the boids based on count
             Integer count = Integer.valueOf(this.view.count.getValue());
-            //System.out.println(count);
             model.setCount(count);
 
             // Set the speed of the simulation

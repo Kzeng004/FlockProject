@@ -28,7 +28,7 @@ public class Model extends Thread {
     /** Current number of boids visible in the window. */
     private int count = 2;
     public void setCount(int boidCount) {
-        // Must be in bounds. Only 200 boids in the list.
+        // No fewer than 2 boids in the list; no more than 200 boids in the list
         if (boidCount < 2) {
             boidCount = 2;
         } else if (boidCount > 200) {
@@ -48,8 +48,8 @@ public class Model extends Thread {
     /** Current speed of boids */
     private int speed = 1;
     public void setSpeed(int newSpeed) {
-        // speed is between 1 (slow) and 5 (fastest)
-        // low speed = high step size
+        // Speed is between 1 (slow) and 5 (fastest)
+        // Low speed = high step size
         if (newSpeed < 1) {
             newSpeed = 1;
         } else if (newSpeed > 5) {
@@ -62,6 +62,7 @@ public class Model extends Thread {
     /** Current size of boids */
     private int size = 0;
     public void setSize(int newSize) {
+        // Size is between 10 (very small) and 40 (very big)
         if(newSize < 10){
             newSize = 10;
         } else if(newSize > 40){
@@ -78,35 +79,38 @@ public class Model extends Thread {
 
     /** Current "weight" of the model's average position rule */
     private int avgPosWeight = 1;
-    public void setAvgPos(int rule1){
-        if (rule1 < 1) {
-            rule1 = 1;
-        } else if (rule1 > 5) {
-            rule1 = 5;
+    public void setAvgPos(int posw){
+        // Significance of average position rule is between 1 (insignificant) and 5 (very significant)
+        if (posw < 1) {
+            posw = 1;
+        } else if (posw > 5) {
+            posw = 5;
         }
-        avgPosWeight = rule1 * 20;
+        avgPosWeight = posw * 20;
     }
 
     /** Current "weight" of the model's average direction rule */
     private int avgDirWeight = 1;
-    public void setAvgDir(int rule2){
-        if (rule2 < 1) {
-            rule2 = 1;
-        } else if (rule2 > 5) {
-            rule2 = 5;
+    public void setAvgDir(int dirw){
+        // Significance of average direction rule is between 1 (insignificant) and 5 (very significant)
+        if (dirw < 1) {
+            dirw = 1;
+        } else if (dirw > 5) {
+            dirw = 5;
         }
-        avgDirWeight = rule2 * 20;
+        avgDirWeight = dirw * 20;
     }
 
     /** Current "weight" of the model's separation rule */
     private int sepWeight = 1;
-    public void setSep(int rule3){
-        if (rule3 < 1) {
-            rule3 = 1;
-        } else if (rule3 > 5) {
-            rule3 = 5;
+    public void setSep(int sepw){
+        // Significance of separation rule is between 1 (insignificant) and 5 (very significant)
+        if (sepw < 1) {
+            sepw = 1;
+        } else if (sepw > 5) {
+            sepw = 5;
         }
-        sepWeight = rule3 * 20;
+        sepWeight = sepw * 20;
     }
 
     private SimulationGUI simulation;
@@ -124,10 +128,9 @@ public class Model extends Thread {
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
-        //position = new Point(rand.nextInt(50,650),rand.nextInt(150,850));
         position = new Point(0,0);
-        //direction = new Point(rand.nextInt(-1,1),rand.nextInt(-1,1));
         direction = new Point(0, 0);
+        // Boids will not show up until Set Up button is pressed
         for (Boid b: boids){
             b.hideBoid();
         }
@@ -139,17 +142,16 @@ public class Model extends Thread {
         // Forever run the simulation
         while(true) {
             // Move things only if the simulation is not paused
-            //If boids are overlapping, change the color of the boids and then change the coordinate of both boids
             if (!paused) {
                 advanceBoids();
+                // Calculate and set all vectors
                 Point avgP = calcAvgPosition();
-                //System.out.println("Position: " + avgP.toString());
                 Point avgD = calcAvgDirection();
-                //System.out.println("Direction: " + avgD.toString());
                 for (Boid b: boids){
                     Point sep = b.separation(boids);
                     b.setForce(avgP,avgPosWeight,avgD,avgDirWeight,sep,sepWeight);
                 }
+                // Paint the boids onto the model
                 simulation.getContentPane().repaint();
                 boids.get(0).repaint();
             }
@@ -182,9 +184,12 @@ public class Model extends Thread {
             b.step();
             b.cohesion(boids);
             b.separation(boids);
-            b.determineNeighbor(b);
-            if(b.getLocation() == b.getLocation()){
-                b.separation(boids);
+            for (Boid b2: boids){
+                b2.determineNeighbor(b);
+                // Makes overlapping boids separate
+                if(b.getLocation().equals(b2.getLocation())){
+                    b.separation(boids);
+                }
             }
             // Set the location, which prompts the viewer to newly display the boid
             b.setLocation((int) b.getXY().x,(int) b.getXY().y);
