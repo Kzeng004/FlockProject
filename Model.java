@@ -118,9 +118,9 @@ public class Model extends Thread {
         simulation = sim;
     }
     /** Average position of all boids */
-    private Point position;
+    private Point avgPosition;
     /** Average direction of all boids */
-    private Point direction;
+    private Point avgDirection;
 
     /** Default constructor. */
     public Model() {
@@ -128,8 +128,8 @@ public class Model extends Thread {
         for (int i=0; i<200; i++) {
             boids.add(new Boid());
         }
-        position = new Point(0,0);
-        direction = new Point(0, 0);
+        avgPosition = new Point(0,0);
+        avgDirection = new Point(0, 0);
         // Boids will not show up until Set Up button is pressed
         for (Boid b: boids){
             b.hideBoid();
@@ -218,9 +218,9 @@ public class Model extends Thread {
         Point posVec = new Point(posx,posy);
         posVec.normalize();
         //Put results into position vector
-        position.add(posVec);
-        position.limit(1);
-        return position;
+        avgPosition.add(posVec);
+        avgPosition.limit(1);
+        return avgPosition;
     }
 
     /**
@@ -245,9 +245,9 @@ public class Model extends Thread {
         //Put results into direction vector
         Point dirVec = new Point(dirx,diry);
         dirVec.normalize();
-        direction.add(dirVec);
-        direction.limit(1);
-        return direction;
+        avgDirection.add(dirVec);
+        avgDirection.limit(1);
+        return avgDirection;
     }
 }
 

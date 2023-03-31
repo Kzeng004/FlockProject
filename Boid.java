@@ -19,10 +19,10 @@ public class Boid extends JPanel {
     /** Whether the boid is touching another boid */
     private boolean touching = false;
     /** x and y bounds to keep boids in the playAreas */
-    private final int xMINRANGE = 50;
-    private final int xMAXRANGE = 850;
-    private final int yMINRANGE = 150;
-    private final int yMAXRANGE = 750;
+    private final int XMINRANGE = 50;
+    private final int XMAXRANGE = 850;
+    private final int YMINRANGE = 150;
+    private final int YMAXRANGE = 750;
 
     /** Radius of each circular boid */
     private int radius = 20;
@@ -101,8 +101,8 @@ public class Boid extends JPanel {
     /** Randomly assign its location based on the fixed ranges. */
     public void randomXY() {
         // place at random location
-        xy.x = random.nextInt(xMAXRANGE - xMINRANGE) + xMINRANGE;
-        xy.y = random.nextInt(yMAXRANGE - yMINRANGE) + yMINRANGE;
+        xy.x = random.nextInt(XMAXRANGE - XMINRANGE) + XMINRANGE;
+        xy.y = random.nextInt(YMAXRANGE - YMINRANGE) + YMINRANGE;
     }
 
     /** Randomly point it in a direction with random "speed" */
@@ -121,10 +121,10 @@ public class Boid extends JPanel {
     /** Move the boid the "delta" for 1 timestep */
     public void step() {
         // If any boid hits the side of the bounding box, make it bounce off the side
-        if (xy.x > xMAXRANGE || xy.x < xMINRANGE){
+        if (xy.x > XMAXRANGE || xy.x < XMINRANGE){
             direction.x *= -1;
         }
-        if (xy.y > yMAXRANGE || xy.y < yMINRANGE){
+        if (xy.y > YMAXRANGE || xy.y < YMINRANGE){
             direction.y *= -1;
         }
         // Make boid move in current set direction

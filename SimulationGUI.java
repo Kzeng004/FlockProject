@@ -11,41 +11,41 @@ import java.util.ArrayList;
 public class SimulationGUI extends JFrame {
 
     /** Label for population-setting slider */
-    private final JLabel countLabel = new JLabel("# of Boids (2-200): ");
+    private final JLabel COUNTLABEL = new JLabel("# of Boids (2-200): ");
     /** Slider to set boid population */
-    protected final JSlider count = new JSlider();
+    protected final JSlider COUNT = new JSlider();
 
     /** Label for speed-setting slider */
-    private final JLabel speedLabel = new JLabel("Speed (1-5): ");
+    private final JLabel SPEEDLABEL = new JLabel("Speed (1-5): ");
     /** Slider to set boid speed */
-    protected final JSlider speed = new JSlider();
+    protected final JSlider SPEED = new JSlider();
 
     /** Label for size-setting slider */
-    private final JLabel sizeLabel = new JLabel("Size (10-40): ");
+    private final JLabel SIZELABEL = new JLabel("Size (10-40): ");
     /** Slider to set boid size */
-    protected final JSlider size = new JSlider();
+    protected final JSlider SIZE = new JSlider();
 
     /** Label for slider to set "weight" of average position rule */
-    private final JLabel avgPosLabel = new JLabel("Average Position Rule Weight (1-5): ");
+    private final JLabel AVGPOSLABEL = new JLabel("Average Position Rule Weight (1-5): ");
     /** Slider to set "weight" of average position rule */
-    protected final JSlider avgPos = new JSlider();
+    protected final JSlider AVGPOS = new JSlider();
 
     /** Label for slider to set "weight" of average direction rule */
-    private final JLabel avgDirLabel = new JLabel("Average Direction Rule Weight (1-5): ");
+    private final JLabel AVGDIRLABEL = new JLabel("Average Direction Rule Weight (1-5): ");
     /** Slider to set "weight" of average direction rule */
-    protected final JSlider avgDir = new JSlider();
+    protected final JSlider AVGDIR = new JSlider();
 
     /** Label for slider to set "weight" of separation rule */
-    private final JLabel sepLabel = new JLabel("Separation Rule Weight (1-5): ");
+    private final JLabel SEPLABEL = new JLabel("Separation Rule Weight (1-5): ");
     /** Slider to set "weight" of separation rule */
-    protected final JSlider sep = new JSlider();
+    protected final JSlider SEP = new JSlider();
 
     /** Button to pause the boids */
-    private final JButton stop = new JButton("Stop");
+    private final JButton STOP = new JButton("Stop");
     /** Button to make the boids start moving */
-    private final JButton play = new JButton("Play");
+    private final JButton PLAY = new JButton("Play");
     /** Button to set up the simulation */
-    private final JButton restart = new JButton("Set Up");
+    private final JButton RESTART = new JButton("Set Up");
 
     /** List of all created boids */
     private ArrayList<Boid> boids;
@@ -82,63 +82,63 @@ public class SimulationGUI extends JFrame {
         // Controller Display
 
         // Boid count label and text box
-        this.countLabel.setBounds(20,20,100,30);
-        this.getContentPane().add(this.countLabel);
+        this.COUNTLABEL.setBounds(20,20,100,30);
+        this.getContentPane().add(this.COUNTLABEL);
         
-        this.count.setBounds(115, 20, 80, 30);
-        this.getContentPane().add(count);
+        this.COUNT.setBounds(115, 20, 80, 30);
+        this.getContentPane().add(COUNT);
         
         // Sim speed label and text box
-        this.speedLabel.setBounds( 20, 50, 100, 30);
-        this.getContentPane().add(this.speedLabel);
+        this.SPEEDLABEL.setBounds( 20, 50, 100, 30);
+        this.getContentPane().add(this.SPEEDLABEL);
         
-        this.speed.setBounds(115, 50, 80, 30);
-        this.getContentPane().add(this.speed);
+        this.SPEED.setBounds(115, 50, 80, 30);
+        this.getContentPane().add(this.SPEED);
 
         // Size label and the textbox
-        this.sizeLabel.setBounds( 20, 80, 100, 30);
-        this.getContentPane().add(this.sizeLabel);
+        this.SIZELABEL.setBounds( 20, 80, 100, 30);
+        this.getContentPane().add(this.SIZELABEL);
         
-        this.size.setBounds(115, 80, 80, 30);
-        this.getContentPane().add(size);
+        this.SIZE.setBounds(115, 80, 80, 30);
+        this.getContentPane().add(SIZE);
 
         // avgPos label and text box
-        this.avgPosLabel.setBounds( 200, 20, 400, 30);
-        this.getContentPane().add(this.avgPosLabel);
+        this.AVGPOSLABEL.setBounds( 200, 20, 400, 30);
+        this.getContentPane().add(this.AVGPOSLABEL);
         
-        this.avgPos.setBounds(415, 20, 80, 30);
-        this.getContentPane().add(this.avgPos);
+        this.AVGPOS.setBounds(415, 20, 80, 30);
+        this.getContentPane().add(this.AVGPOS);
 
         // avgDir label and the textbox
-        this.avgDirLabel.setBounds( 200, 50, 400, 30);
-        this.getContentPane().add(this.avgDirLabel);
+        this.AVGDIRLABEL.setBounds( 200, 50, 400, 30);
+        this.getContentPane().add(this.AVGDIRLABEL);
         
-        this.avgDir.setBounds(415, 50, 80, 30);
-        this.getContentPane().add(avgDir);
+        this.AVGDIR.setBounds(415, 50, 80, 30);
+        this.getContentPane().add(AVGDIR);
 
         // sep label and the textbox
-        this.sepLabel.setBounds( 200, 80, 400, 30);
-        this.getContentPane().add(this.sepLabel);
+        this.SEPLABEL.setBounds( 200, 80, 400, 30);
+        this.getContentPane().add(this.SEPLABEL);
         
-        this.sep.setBounds(415, 80, 80, 30);
-        this.getContentPane().add(sep);
+        this.SEP.setBounds(415, 80, 80, 30);
+        this.getContentPane().add(SEP);
 
         
 
         // Restart button 
-        this.restart.setBounds(500, 20, 120, 30);
-        this.restart.addActionListener(control);
-        this.getContentPane().add(this.restart);
+        this.RESTART.setBounds(500, 20, 120, 30);
+        this.RESTART.addActionListener(control);
+        this.getContentPane().add(this.RESTART);
         
         // Play button
-        this.play.setBounds(500, 60, 120, 30);
-        this.play.addActionListener(control);
-        this.getContentPane().add(this.play);
+        this.PLAY.setBounds(500, 60, 120, 30);
+        this.PLAY.addActionListener(control);
+        this.getContentPane().add(this.PLAY);
         
         // Stop button
-        this.stop.setBounds(500, 100, 120, 30);
-        this.stop.addActionListener(control);
-        this.getContentPane().add(this.stop);
+        this.STOP.setBounds(500, 100, 120, 30);
+        this.STOP.addActionListener(control);
+        this.getContentPane().add(this.STOP);
     }
     
 }
