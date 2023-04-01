@@ -2,7 +2,6 @@
 /*
  * Vec.java
  */
-
  /**
   * Helper class to store xy locations - Can be used as points or vectors
   * @author Ethan Kempenich

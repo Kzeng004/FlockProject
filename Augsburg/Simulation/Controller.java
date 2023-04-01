@@ -1,7 +1,6 @@
 /*
  * Controller.java
  */
-
 import java.awt.event.*;
 import javax.swing.event.*;
 
